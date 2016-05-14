@@ -78,12 +78,13 @@ Rails.application.configure do
   config.action_mailer.default :charset => "utf-8"
 
   config.action_mailer.smtp_settings = {
-    :address        => 'smtp.mailgun.org',
+  :address        => 'smtp.mailgun.org',
   :port           => '587',
   :authentication => :plain,
   :user_name      => 'postmaster@sandbox3ed8de9510c845c68bf0d867a8f25394.mailgun.org',
   :password       => ENV['MAILGUN_PASSWORD'],
-  :domain         => 'mighty-coast-71989.heroku.com',
+  :domain         => 'heroku.com',
+  :from           => 'Chris',
   :enable_starttls_auto => true
   }
 
