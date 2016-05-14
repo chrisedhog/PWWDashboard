@@ -84,7 +84,7 @@ Rails.application.configure do
   :user_name      => 'postmaster@sandbox3ed8de9510c845c68bf0d867a8f25394.mailgun.org',
   :password       => ENV['MAILGUN_PASSWORD'],
   :domain         => 'herokuapp.com',
-  :enable_starttls_auto => true
+  # :enable_starttls_auto => true
   }
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
