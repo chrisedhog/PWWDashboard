@@ -62,7 +62,7 @@ Rails.application.configure do
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = false
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -74,17 +74,16 @@ Rails.application.configure do
   #Action mailer config:
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
-  config.action_mailer.raise_delivery_errors = false
   config.action_mailer.default :charset => "utf-8"
 
   config.action_mailer.smtp_settings = {
   :address        => 'smtp.mailgun.org',
   :port           => '587',
   :authentication => :plain,
-  :user_name      => 'postmaster@sandbox3ed8de9510c845c68bf0d867a8f25394.mailgun.org',
-  :password       => '821e5cba66f01f407c6060b68e992204',
+  :user_name      => ENV['postmaster@sandbox3ed8de9510c845c68bf0d867a8f25394.mailgun.org'],
+  :password       => ENV['MAILGUN_PASSWORD'],
   :domain         => 'heroku.com',
-  # :enable_starttls_auto => true
+  :enable_starttls_auto => true
   }
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
