@@ -14,6 +14,7 @@ Devise.setup do |config|
   # with default "from" parameter.
   config.mailer_sender = 'postmaster@sandbox3ed8de9510c845c68bf0d867a8f25394.mailgun.org'
 
+
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
 
@@ -124,7 +125,7 @@ Devise.setup do |config|
   # initial account confirmation) to be applied. Requires additional unconfirmed_email
   # db field (see migrations). Until confirmed, new email is stored in
   # unconfirmed_email column, and copied to email column on successful confirmation.
-  config.reconfirmable = true
+  config.reconfirmable = false
 
   # Defines which key will be used when confirming an account
   # config.confirmation_keys = [:email]
