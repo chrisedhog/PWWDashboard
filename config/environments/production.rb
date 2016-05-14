@@ -70,22 +70,22 @@ Rails.application.configure do
 
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
-  # config.action_mailer.default_url_options = { :host => 'heroku.com' }
+  config.action_mailer.default_url_options = { :host => 'smtp.sendgrid.net' }
   #Action mailer config:
-  # config.action_mailer.delivery_method = :smtp
-  # config.action_mailer.perform_deliveries = true
-  # config.action_mailer.raise_delivery_errors = false
-  # config.action_mailer.default :charset => "utf-8"
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default :charset => "utf-8"
 
-  # config.action_mailer.smtp_settings = {
-  #   :port           => 587,
-  #   :address        => 'smtp.mailgun.org',
-  #   :user_name      => 'postmaster@sandbox3ed8de9510c845c68bf0d867a8f25394.mailgun.org',
-  #   :password       => ENV['MAILGUN_PASSWORD'],
-  #   :domain         => 'heroku.com',
-  #   :authentication => :plain,
-  #   :enable_starttls_auto => true
-  # }
+  config.action_mailer.smtp_settings = {
+    :address        => 'smtp.sendgrid.net',
+  :port           => '587',
+  :authentication => :plain,
+  :user_name      => ENV['app50769101@heroku.com'],
+  :password       => ENV['tzt8oi108131'],
+  :domain         => 'heroku.com',
+  :enable_starttls_auto => true
+  }
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
