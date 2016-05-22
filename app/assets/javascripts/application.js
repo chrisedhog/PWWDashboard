@@ -14,4 +14,28 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
+//= require toastr
 //= require_tree .
+
+$(document).ready(function() {
+	
+	
+	 toastr.options = {
+	                  "closeButton": false,
+                      "debug": false,
+                      "newestOnTop": false,
+                      "progressBar": false,
+                      "positionClass": "toast-top-right",
+                      "preventDuplicates": true,
+                      "onclick": null,
+                      "showDuration": "100",
+                      "hideDuration": "500",
+                      "timeOut": "1500",
+                      "extendedTimeOut": "100",
+                      "showEasing": "swing",
+                      "hideEasing": "linear",
+                      "showMethod": "fadeIn",
+                      "hideMethod": "fadeOut"
+	              }
+	
+	});

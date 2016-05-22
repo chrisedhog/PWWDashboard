@@ -2,14 +2,23 @@ Rails.application.routes.draw do
   resources :profiles
   devise_for :users
   get 'home/index'
+  
+  #manage admin status
+  get 'make_admin/:id', to: 'users#make_admin'
+  get 'make_super_admin/:id', to: 'users#make_super_admin'
+  get 'remove_roles/:id', to: 'users#remove_roles'
 
+
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   root 'home#index'
+
   
   resources :users, only: :destroy
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
