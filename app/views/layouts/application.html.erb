@@ -7,11 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<!-- Temp navbar for dev -->
-<% if user_signed_in? %>
-    <%= render 'layouts/nav' %>
-<% end %>
-
+<!-- Notification -->
 <% unless flash.empty? %>
 	  <script type="text/javascript">
 	      <% flash.each do |f| %>
@@ -20,6 +16,11 @@
 	      <% end %>
 	  </script>
 	 <% end %>
+   
+<!-- Temp navbar for dev -->
+<% if user_signed_in? %>
+    <%= render 'layouts/nav' %>
+<% end %>
    
 <div class="container">      
   <%= yield %>

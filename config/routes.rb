@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'admin', to: 'pages#admin'
+  get 'help', to: 'pages#help'
+  get 'contact', to: 'pages#contact'
+
   resources :profiles
   devise_for :users
   get 'home/index'
@@ -7,8 +11,6 @@ Rails.application.routes.draw do
   get 'make_admin/:id', to: 'users#make_admin'
   get 'make_super_admin/:id', to: 'users#make_super_admin'
   get 'remove_roles/:id', to: 'users#remove_roles'
-
-
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

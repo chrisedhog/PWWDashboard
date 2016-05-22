@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+
     def make_admin
         @user = User.find(params[:id])
         @user.add_role :admin
