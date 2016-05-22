@@ -19,12 +19,14 @@
                   <li><%= link_to 'View Profiles', profiles_path %></li>
                   <li><a href="#">Create Profile</a></li>
                   <li role="separator" class="divider"></li>
-                  <li><%= link_to 'Edit Profile', edit_profile_path(current_user.profile), class: 'nav-link' %></li>
+                  <% if current_user.profile %>
+                    <li><%= link_to 'Edit Profile', edit_profile_path(current_user.profile), class: 'nav-link' %></li>
+                  <% end %>
                   <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete, class: 'nav-link' %></li>
                 </ul>
               </li>
             <!-- ADMIN TOOLS PANEL -->
-            <% else current_user.has_role? :admin %>
+            <% elsif current_user.has_role? :admin %>
                <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
                 <ul class="dropdown-menu">
@@ -37,9 +39,9 @@
                   <li><a href="#">One more separated link</a></li>
                 </ul>
               </li>
-              <% elseif %>
-                <%= link_to 'Log Out', destroy_user_session(user), method: delete %>
-              <%end%> <!-- Admin Tools -->
+              <% else %>
+                <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete, class: 'nav-link' %></li>
+              <% end %> <!-- Admin Tools -->
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
