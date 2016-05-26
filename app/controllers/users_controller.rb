@@ -4,7 +4,7 @@ class UsersController < ApplicationController
         @user = User.find(params[:id])
         @user.add_role :admin
         @user.remove_role :super_admin
-        redirect_to :back, alert: 'Role changed to admin.'
+        redirect_to :back, alert: 'Role changed to Admin.'
     end
     
     def make_super_admin
@@ -26,6 +26,7 @@ class UsersController < ApplicationController
         @user.destroy
         redirect_to :back
     end
+   
     
 end
 

@@ -11,9 +11,9 @@
               <li><%= link_to 'contact', contact_path, class: 'nav-link' %></li>
               <li>
                 <div class="btn-group" role="group" aria-label="switch user roles" style="padding-top:8px;">
-                    <a href="make_super_admin/<%= current_user.id %>" class="btn <%= 'btn-primary' if current_user.has_role? :super_admin %>">Super Admin</a>
-                    <a href="make_admin/<%= current_user.id %>" class="btn <%= 'btn-primary' if current_user.has_role? :admin %>">Admin</a>
-                    <a href="remove_roles/<%= current_user.id %>" class="btn <%= 'btn-primary' unless (current_user.has_role? :admin) || (current_user.has_role? :super_admin) %>">User</a>
+                    <a href="../make_super_admin/<%= current_user.id %>" class="btn <%= 'btn-primary' if current_user.has_role? :super_admin %>">Super Admin</a>
+                    <a href="../make_admin/<%= current_user.id %>" class="btn <%= 'btn-primary' if current_user.has_role? :admin %>">Admin</a>
+                    <a href="../remove_roles/<%= current_user.id %>" class="btn <%= 'btn-primary' unless (current_user.has_role? :admin) || (current_user.has_role? :super_admin) %>">User</a>
                 </div>
               </li>
             </ul>

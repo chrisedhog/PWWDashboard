@@ -5,20 +5,27 @@ class ProfilesController < ApplicationController
   # GET /profiles.json
   def index
     @profiles = Profile.all
+    authorize! :read, @profile
   end
 
   # GET /profiles/1
   # GET /profiles/1.json
   def show
+    authorize! :read, @profile
   end
 
   # GET /profiles/new
   def new
+  if current_user.profile
+    redirect_to :back, alert: 'You cannot have more than one profile. Please edit your profile through the user menu.'
+  else
     @profile = Profile.new
+    end
   end
 
   # GET /profiles/1/edit
   def edit
+    authorize! :edit, @profile
   end
 
   # POST /profiles
@@ -41,6 +48,9 @@ class ProfilesController < ApplicationController
   # PATCH/PUT /profiles/1
   # PATCH/PUT /profiles/1.json
   def update
+  
+    authorize! :delete, @profile
+  
     respond_to do |format|
       if @profile.update(profile_params)
         format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }

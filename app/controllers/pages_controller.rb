@@ -1,5 +1,7 @@
 class PagesController < ApplicationController
   before_action :authenticate_user!
+  skip_before_action :authenticate_user!, only: [:contact, :help]
+
   
   def admin
     if (current_user.has_role? :admin) || (current_user.has_role? :super_admin)
