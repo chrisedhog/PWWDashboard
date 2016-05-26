@@ -28,15 +28,22 @@
       <hr>
 <strong>I'm up to...</strong>
 <ul>
-
+  <li>Currently following video tutorial to add an admin panel. WORKING ON A BRANCH CALLED 'admin_panel'. Once you're happy, commit, test, then merge to origin (see word doc for how to)</li>
+  <li>Have added admin panel at /admin2 – to manage who can access the admin panel, edit rails_admin in initializers.</li>
   <li>Work out how to change colour/styling of the alerts + use FontAwesome rather than images for icons.</li>
   <li>Creating the user_controller and making an admin and a super admin <span class="btn btn-warning btn-sml">In Progress, privelages for admin/super need to be defined</span></li>
   <li>Need to limit profile create to 1 per user and prevent them from seeing anyone else's profiles</li>
   <li>Need to restrict access to view/edit user profiles to ONLY the user it belongs to (unless an admin)</li>
+  <hr>
   <li>Added CanCan parameters to restrict who can edit profils/view profiles (admin can edit/see all, users can only see/edit their own)<span class="btn btn-success btn-sml">Done!</span></li>
   <li>Created an admin panel restricted to admins and suepr admins only + help page for how to use the site as admin or user + contact page<span class="btn btn-success btn-sml">Done!</span></li>
   <li>Create a 'delete' def in user to log out a user <span class="btn btn-success btn-sml">Done!</span></li>
   <li>Redirecting a user to the 'create a profile' page automatically after log in if they haven't set up a profile using "if current_user.profile" <span class="btn btn-success btn-sml">Done!</span></li>
+</ul>
+<ul><strong>Tutorials that will be of use</strong>
+  <li>Use AJAX to reload parts of the page without refreshing the entire page: <a href="https://www.youtube.com/watch?v=2Il7PPhen3o">View Here</a></li>
+  <li>Railscast – using jquery and AJAX <a href="https://www.youtube.com/watch?v=M7yhPlIehFA">View Here</a></li>
+  <li>Auto complete fields: <a href="https://www.youtube.com/watch?v=M7yhPlIehFA">View Here</a></li>
 </ul>
 <hr>
 <% User.all.each do |user| %>
