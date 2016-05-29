@@ -6,6 +6,10 @@ Rails.application.routes.draw do
 
   resources :profiles
   devise_for :users
+  resources :users, except: :create
+  # Name it however you want
+  post 'create_user' => 'users#create', as: :create_user
+  
   get 'home/index'
   
   #manage admin status

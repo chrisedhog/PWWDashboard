@@ -1,3 +1,13 @@
 <h1>Pages#contact</h1>
 <p>Find me in app/views/pages/contact.html.erb</p>
+<%= form_for User.new, url: create_user_path do |f| %>
+  <div class="form-inputs">
+    <%= f.text_field :email, required: true, autofocus: true %>
+    <%= f.password_field :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
+    <%= f.password_field :password_confirmation, required: true %>
+  </div>
 
+  <div class="form-actions">
+    <%= f.submit :create_new_user %>
+  </div>
+<% end %>

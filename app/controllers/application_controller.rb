@@ -15,4 +15,9 @@ class ApplicationController < ActionController::Base
   #   end
   # end
   
+      private
+
+    # This should probably be abstracted to ApplicationController
+    # as shown by diego.greyrobot
+  
 end

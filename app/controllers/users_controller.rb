@@ -26,7 +26,12 @@ class UsersController < ApplicationController
         @user.destroy
         redirect_to :back
     end
-   
+    
+    def create
+        user = User.new({ :email => email, :password => password })
+        return user.save
+    # admins only
+    end
     
 end
 

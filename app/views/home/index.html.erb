@@ -9,10 +9,8 @@
 <% else %>
   <%= link_to 'Sign In', user_session_path, method: :get %>
 <% end %>
-
 <br>
   <hr>
-
 <% if current_user.profile %>
       <span>Welcome back, <%= current_user.email %>,
       you're role is
@@ -26,6 +24,12 @@
       <span>How about creating <%= link_to 'a profile?', new_profile_path %></span>
 <% end %>
       <hr>
+<strong>Questions to ask Matt</strong>
+<ul>
+  <li>How to get railgun working on the production site</li>
+  <li>the location of the rails_admin HTML to alter/remove layout elements</li>
+  <li>better charts?</li>
+</ul>
 <strong>I'm up to...</strong>
 <ul>
   <li>Currently following video tutorial to add an admin panel. WORKING ON A BRANCH CALLED 'admin_panel'. Once you're happy, commit, test, then merge to origin (see word doc for how to)</li>

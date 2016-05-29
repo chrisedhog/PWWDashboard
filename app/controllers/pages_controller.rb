@@ -7,7 +7,7 @@ class PagesController < ApplicationController
     if (current_user.has_role? :admin) || (current_user.has_role? :super_admin)
       @users = User.all
     else
-      redirect_to root_path
+      redirect_to root_path, alert: "You don't have permission"
     end
   end
 
