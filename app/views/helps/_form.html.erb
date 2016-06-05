@@ -1,0 +1,18 @@
+<%= simple_form_for(@help) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :title %>
+    <%= f.input :category, collection: ['Getting Started', 'User Management', 'Errors', 'My Account', 'Database', 'Other'] , class: "form-control dropdown" %>
+    <%= f.input :access_level, collection: ['All', 'Admin', 'Super Admin', 'Staff Manager'], default: [0] , class: "form-control dropdown"%>
+
+    <%= f.input :body %>
+    <%= f.input :anchor_id, label: 'Anchor <br><span style="font-weight: 400;">A brief description or name for the post, this will be used as a unique name to link directly to. <strong>No spaces – use underscore "_" instead.</strong></span>
+'.html_safe %>
+    <br><br><br>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

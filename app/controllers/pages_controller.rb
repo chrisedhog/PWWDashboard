@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   before_action :authenticate_user!
-  skip_before_action :authenticate_user!, only: [:contact, :help]
+  skip_before_action :authenticate_user!, only: [:contact]
 
   
   def admin
@@ -9,9 +9,6 @@ class PagesController < ApplicationController
     else
       redirect_to root_path
     end
-  end
-
-  def help
   end
 
   def contact

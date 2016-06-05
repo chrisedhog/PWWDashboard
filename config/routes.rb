@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :helps
+  resources :helps
   get 'admin', to: 'pages#admin'
   get 'help', to: 'pages#help'
   get 'contact', to: 'pages#contact'

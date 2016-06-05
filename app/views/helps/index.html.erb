@@ -1,0 +1,53 @@
+<h1>Listing Helps</h1>
+
+<div class="col-md-3 col-sx-12">
+<ul>
+<% @helps.each do |h| %>
+  <li><%= h.title %></li>
+<% end %>
+</ul>
+</div>
+
+<div class="col-md-9 col-sx-12">
+<% @helps.each do |h| %>
+<p id="<%= h.anchor_id %>">
+<h2><%= h.title %></h2>
+<span style="font-size: 8pt; color: #efefef"><%= h.category %> | 
+For: <%= h.access_level %></span>
+<hr>
+<%= h.body %></p>
+<hr>
+<% end %>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Category</th>
+      <th>Access level</th>
+      <th>Body</th>
+      <th>Anchor</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @helps.each do |help| %>
+      <tr>
+        <td><%= help.title %></td>
+        <td><%= help.category %></td>
+        <td><%= help.access_level %></td>
+        <td><%= help.body %></td>
+        <td><%= help.anchor_id %></td>
+        <td><%= link_to 'Show', help %></td>
+        <td><%= link_to 'Edit', edit_help_path(help) %></td>
+        <td><%= link_to 'Destroy', help, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Help', new_help_path %>

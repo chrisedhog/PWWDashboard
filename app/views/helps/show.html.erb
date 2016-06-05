@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @help.title %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @help.category %>
+</p>
+
+<p>
+  <strong>Access level:</strong>
+  <%= @help.access_level %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @help.body %>
+</p>
+
+<p>
+  <strong>Anchor:</strong>
+  <%= @help.anchor_id %>
+</p>
+
+<%= link_to 'Edit', edit_help_path(@help) %> |
+<%= link_to 'Back', helps_path %>
