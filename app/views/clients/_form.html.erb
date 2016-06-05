@@ -1,0 +1,19 @@
+<%= simple_form_for(@client) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :client %>
+    <%= f.input :project_status %>
+    <%= f.input :project_status %>
+    <%= f.input :project_name %>
+    <%= f.input :completion_date %>
+    <%= f.input :completion_month %>
+    <%= f.input :budget_revenue %>
+    <%= f.input :budget_margin %>
+    <%= f.input :budget_margin %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

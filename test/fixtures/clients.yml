@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  client: MyString
+  project_status: MyString
+  project_status: MyString
+  project_name: MyString
+  completion_date: 2016-06-05
+  completion_month: 2016-06-05
+  budget_revenue: 1.5
+  budget_margin: 1.5
+  budget_margin: 9.99
+
+two:
+  client: MyString
+  project_status: MyString
+  project_status: MyString
+  project_name: MyString
+  completion_date: 2016-06-05
+  completion_month: 2016-06-05
+  budget_revenue: 1.5
+  budget_margin: 1.5
+  budget_margin: 9.99

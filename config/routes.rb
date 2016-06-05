@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :clients
   resources :helps
   resources :helps
   get 'admin', to: 'pages#admin'
