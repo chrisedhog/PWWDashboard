@@ -1,22 +1,45 @@
-<h1>Listing Helps</h1>
+<h1>Help</h1>
 
 <div class="col-md-3 col-sx-12">
+<h3>Jump To:</h3>
 <ul>
 <% @helps.each do |h| %>
-  <li><%= h.title %></li>
+  <% if (h.access_level == 'Admin') && ((current_user.has_role? :admin) || (current_user.has_role? :super_admin)) %>
+  <!-- Print out the help file only to admins -->
+    <li><%= link_to h.title, helps_path(anchor: h.anchor_id) %></li>
+  <% elsif (h.access_level == 'All') %>
+  <!-- Display for everyone if for 'all' -->
+    <li><%= link_to h.title, helps_path(anchor: h.anchor_id) %></li>
+  <% else %>
+  <!-- Otherwise skip (so users don't see admin posts) -->
+  <% end %>
 <% end %>
 </ul>
 </div>
 
 <div class="col-md-9 col-sx-12">
 <% @helps.each do |h| %>
-<p id="<%= h.anchor_id %>">
-<h2><%= h.title %></h2>
-<span style="font-size: 8pt; color: #efefef"><%= h.category %> | 
-For: <%= h.access_level %></span>
-<hr>
-<%= h.body %></p>
-<hr>
+  <% if (h.access_level == 'Admin') && ((current_user.has_role? :admin) || (current_user.has_role? :super_admin)) %>
+  <!-- Print out the help file only to admins -->
+    <p id="<%= h.anchor_id %>">
+    <h2><%= h.title %></h2>
+    <span style="font-size: 8pt; color: #58b2ff"><%= h.category %> | 
+    For: <%= h.access_level %></span>
+    <hr>
+    <%= h.body %></p>
+    <hr>
+  <% elsif (h.access_level == 'All') %>
+  <!-- Display for everyone if for 'all' -->
+    <p id="<%= h.anchor_id %>">
+    <h2><%= h.title %></h2>
+    <span style="font-size: 8pt; color: #58b2ff"><%= h.category %> | 
+    For: <%= h.access_level %></span>
+    <hr>
+    <%= h.body %></p>
+    <hr>
+  <% else %>
+  <!-- Otherwise skip (so users don't see admin posts) -->
+  <% end %>
 <% end %>
 </div>
 
