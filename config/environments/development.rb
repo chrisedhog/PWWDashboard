@@ -10,7 +10,7 @@ Rails.application.configure do
   config.eager_load = false
 
   # Show full error reports and disable caching.
-  config.consider_all_requests_local       = true
+  config.consider_all_requests_local       = false
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send.
@@ -27,9 +27,20 @@ Rails.application.configure do
   # number of complex assets.
   config.assets.debug = true
   
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_url_options = { :host => 'smtp-relay.gmail.com' }
   config.action_mailer.delivery_method = :smtp
+  config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_deliveries = true
+  
+  config.action_mailer.smtp_settings = {
+    address: "smtp-relay.gmail.com",
+    port: 80,
+    domain: "easiar.com",
+    authentication: "plain",
+    enable_starttls_auto: false,
+    user_name: "chris.edhogben@gmail.com",
+    password: "clareXsaber1"
+  }
 
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.

@@ -26,6 +26,10 @@ class UsersController < ApplicationController
         @user.destroy
         redirect_to :back
     end
+    
+    def invite_user
+        User.invite!({:email => params[""]}, current_user)
+    end
    
     
 end

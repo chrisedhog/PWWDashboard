@@ -7,6 +7,7 @@ gem 'rails', '4.2.5.1'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 gem 'devise'
+gem 'devise_invitable'
 gem 'simple_form'
 gem 'rolify'
 gem 'cancancan'
