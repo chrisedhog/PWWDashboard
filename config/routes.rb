@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  resources :clients
+  resources :projects do 
+    collection { post :import }
+  end
+  
   resources :helps
   resources :helps
   get 'admin', to: 'pages#admin'
