@@ -1,0 +1,21 @@
+<h1>Manage Users</h1>
+<h5>Select a user below and assign clients to them.</h5>
+
+<% @users.all.each do |user| %>
+    <div class="col-lg-4 alert alert-info" style="margin: 5px; background-color: #f0f0f0; border: 1px solid #eaeaea;">
+        <h4><%= user.email %></h4>
+        <p><strong><%= user.email %>'s Clients:</strong></p>
+            <% user.clients.all.each do |client| %>
+                <%= link_to client.client_name, remove_client_path(selected_user: user, client: client), class: 'btn btn-warning btn-sm' %> 
+            <% end %>
+        <hr>
+        <p><strong>Add clients:</strong><br>
+            <% @clients.all.each do |client| %>
+                <% if user.clients.include?(client) %>
+                <% else %>
+                <%= link_to client.client_name, add_client_path(selected_user: user, client: client) , class: 'btn btn-primary btn-sm' %>
+                <% end %>
+            <% end %>
+        </p>
+    </div>
+<% end %>

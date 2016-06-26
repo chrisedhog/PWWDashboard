@@ -10,6 +10,7 @@
               <li><%= link_to 'help', helps_path, class: 'nav-link' %></li>
               <li><%= link_to 'contact', contact_path, class: 'nav-link' %></li>
               <li><%= link_to 'projects', projects_path, class: 'nav-link' %></li>
+              <li><%= link_to 'clients', clients_path, class: 'nav-link' %></li>
               <li>
                 <div class="btn-group" role="group" aria-label="switch user roles" style="padding-top:8px;">
                     <a href="../make_super_admin/<%= current_user.id %>" class="btn <%= 'btn-primary' if current_user.has_role? :super_admin %>">Super Admin</a>
@@ -27,6 +28,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Super Admin <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><%= link_to 'Admin Panel', admin_path, class: 'nav-link' %></li>
+                  <li><%= link_to 'Manage Users', manage_users_path, class: 'nav-link' %></li>
                   <li role="separator" class="divider"></li>
                   <li><%= link_to 'View Profiles', profiles_path %></li>
                   <% if current_user.profile %>
@@ -42,6 +44,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><%= link_to 'Admin Panel', admin_path, class: 'nav-link' %></li>
+                  <li><%= link_to 'Manage Users', manage_users_path, class: 'nav-link' %></li>
                   <li role="separator" class="divider"></li>
                   <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete, class: 'nav-link' %></li>
                 </ul>

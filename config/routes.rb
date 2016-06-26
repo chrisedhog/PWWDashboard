@@ -5,20 +5,22 @@ Rails.application.routes.draw do
   end
   
   resources :helps
-  resources :helps
   get 'admin', to: 'pages#admin'
   get 'help', to: 'pages#help'
   get 'contact', to: 'pages#contact'
+  get 'manage_users', to: 'pages#manage_users'
 
   resources :profiles
   devise_for :users
   get 'home/index'
   
-  #manage admin status
+  # manage admin status
   get 'make_admin/:id', to: 'users#make_admin'
   get 'make_super_admin/:id', to: 'users#make_super_admin'
   get 'remove_roles/:id', to: 'users#remove_roles'
   
+  get 'add_client', to: 'pages#add_client'
+  get 'remove_client', to: 'pages#remove_client'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

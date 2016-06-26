@@ -1,19 +1,6 @@
 <h1>Home#index</h1>
 <p>Find me in app/views/home/index.html.erb</p>
 <% if current_user.profile %>
-  <button class="btn btn-warning">You've set up a profile. Good for you!</button>
-<% end %>
-
-<% if user_signed_in? %>
-  <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
-<% else %>
-  <%= link_to 'Sign In', user_session_path, method: :get %>
-<% end %>
-
-<br>
-  <hr>
-
-<% if current_user.profile %>
       <span>Welcome back, <%= current_user.email %>,
       you're role is
         <% if current_user.has_role? :admin %>
@@ -28,15 +15,18 @@
       <hr>
 <strong>I'm up to...</strong>
 <ul>
+  <li><span class="btn btn-danger btn-sm">CURRENT</span> In the projects controller, I'm attempting to create a @myprojects that compares what clients you are assigned to, with the client name of the project, and add that to the @myprojects list to display. </li>
   <il>Changed 'clients' to 'projects'; need to create join tables for A) Users/Projects B) Clients/Projects</il>
+  <li>Need to work out a way that uploading a CSV file to projects adds the project to a client (using the client field in the CSV file)</li>
+  <hr>
   <li>Creating Help pages, need to print out all help files, display categoriess on the side and manage who can see what + make use of anchor_ids</li>
   <li>Work out how to change colour/styling of the alerts + use FontAwesome rather than images for icons.</li>
-  <li>Creating the user_controller and making an admin and a super admin <span class="btn btn-warning btn-sml">In Progress, privelages for admin/super need to be defined</span></li>
+  <li>Creating the user_controller and making an admin and a super admin <span class="btn btn-warning btn-sm">In Progress, privelages for admin/super need to be defined</span></li>
   <li>Need to limit profile create to 1 per user and prevent them from seeing anyone else's profiles</li>
   <li>Need to restrict access to view/edit user profiles to ONLY the user it belongs to (unless an admin)</li>
-  <li>Added CanCan parameters to restrict who can edit profils/view profiles (admin can edit/see all, users can only see/edit their own)<span class="btn btn-success btn-sml">Done!</span></li>
-  <li>Created an admin panel restricted to admins and suepr admins only + help page for how to use the site as admin or user + contact page<span class="btn btn-success btn-sml">Done!</span></li>
-  <li>Create a 'delete' def in user to log out a user <span class="btn btn-success btn-sml">Done!</span></li>
+  <li>Added CanCan parameters to restrict who can edit profils/view profiles (admin can edit/see all, users can only see/edit their own)<span class="btn btn-success btn-sm">Done!</span></li>
+  <li>Created an admin panel restricted to admins and suepr admins only + help page for how to use the site as admin or user + contact page<span class="btn btn-success btn-sm">Done!</span></li>
+  <li>Create a 'delete' def in user to log out a user <span class="btn btn-success btn-sm">Done!</span></li>
   <li>Redirecting a user to the 'create a profile' page automatically after log in if they haven't set up a profile using "if current_user.profile" <span class="btn btn-success btn-sml">Done!</span></li>
 </ul>
 <hr>

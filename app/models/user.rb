@@ -6,5 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :lockable
          
  has_one :profile
-
+ 
+ has_many :user_clients
+ has_many :clients, through: :user_clients
 end
