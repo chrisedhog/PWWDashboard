@@ -18,7 +18,7 @@ class ClientsControllerTest < ActionController::TestCase
 
   test "should create client" do
     assert_difference('Client.count') do
-      post :create, client: { budget_margin: @client.budget_margin, budget_margin: @client.budget_margin, budget_revenue: @client.budget_revenue, client: @client.client, completion_date: @client.completion_date, completion_month: @client.completion_month, project_name: @client.project_name, project_status: @client.project_status, project_status: @client.project_status }
+      post :create, client: { client_name: @client.client_name, company: @client.company, country: @client.country, region: @client.region }
     end
 
     assert_redirected_to client_path(assigns(:client))
@@ -35,7 +35,7 @@ class ClientsControllerTest < ActionController::TestCase
   end
 
   test "should update client" do
-    patch :update, id: @client, client: { budget_margin: @client.budget_margin, budget_margin: @client.budget_margin, budget_revenue: @client.budget_revenue, client: @client.client, completion_date: @client.completion_date, completion_month: @client.completion_month, project_name: @client.project_name, project_status: @client.project_status, project_status: @client.project_status }
+    patch :update, id: @client, client: { client_name: @client.client_name, company: @client.company, country: @client.country, region: @client.region }
     assert_redirected_to client_path(assigns(:client))
   end
 

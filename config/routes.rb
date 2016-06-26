@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :clients
   resources :projects do 
     collection { post :import }
   end
