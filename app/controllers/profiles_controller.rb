@@ -12,6 +12,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/1.json
   def show
     authorize! :read, @profile
+    @clients = Client.all
   end
 
   # GET /profiles/new
@@ -20,12 +21,14 @@ class ProfilesController < ApplicationController
     redirect_to :back, alert: 'You cannot have more than one profile. Please edit your profile through the user menu.'
   else
     @profile = Profile.new
+    @clients = Client.all    
     end
   end
 
   # GET /profiles/1/edit
   def edit
     authorize! :edit, @profile
+    @clients = Client.all    
   end
 
   # POST /profiles

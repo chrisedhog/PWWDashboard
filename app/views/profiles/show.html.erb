@@ -40,5 +40,26 @@
   <%= @profile.user.email %>
 </p>
 
+<p>
+  <strong>Your Clients:</strong>
+  <ul>
+  <% @profile.user.clients.all.each do |c| %>
+    <li><%= c.client_name %> – <%= ISO3166::Country[c.country] %></li>
+  <% end %>
+  </ul>
+</p>
+<div>
+	<strong>Assign Clients:</strong>
+	  <% @clients.all.each do |client| %>
+	      <li>
+        <%= check_box_tag "user[client_ids][]", client.id %>
+        <%= client.client_name %>
+        </li>
+	  <% end %>
+	  <br>
+</div>
+
+<div style="margin-top: 50px;">
 <%= link_to 'Edit', edit_profile_path(@profile) %> |
 <%= link_to 'Back', profiles_path %>
+</div>

@@ -6,28 +6,32 @@ class ProjectsController < ApplicationController
   def index
    # @projects = Project.all
     @projects = Project.all
-    @clients = Client.all
     @myprojects = []
     
-    @projects.all.each do |proj|
-    i = 0
-       while (i < current_user.clients.count)
-       # THIS PART I'M STRUGGELING WITH - seems to be working now. I loop through my current_user's clients using i,
-       # and if they are the same as in the DB, it will add them to @myprojects. If it isn't, it will skip and just 
-       # increment i by 1.
-          if (proj.client == @clients.find(current_user.clients[i]).client_name)
-          @myprojects << proj
-            i = i + 1
-            else
-            i = i + 1
+    if (current_user.clients.count > 0)
+      @projects.all.each do |proj|
+      i = 0
+        while (i < current_user.clients.count)
+        # THIS PART I'M STRUGGELING WITH - seems to be working now. I loop through my current_user's clients using i,
+        # and if they are the same as in the DB, it will add them to @myprojects. If it isn't, it will skip and just 
+        # increment i by 1.
+              if (proj.client == @clients.find(current_user.clients[i]).client_name)
+                @myprojects << proj
+                  i = i + 1
+                  else
+                  i = i + 1
+                end
+            end
           end
-       end
+      else
+        @myprojects = Project.all
+      end
     end
-  end
 
   # GET /projects/1
   # GET /projects/1.json
   def show
+    
   end
 
   # GET /projects/new

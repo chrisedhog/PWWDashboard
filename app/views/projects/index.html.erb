@@ -3,7 +3,6 @@
 <h1>Listing Projects</h1>
 <h2>Total Projects: <%= @projects.count %></h2>
 <h3>Your Clients: <%= current_user.clients.count %></h3>
-<%= @clients.find(current_user.clients[1]).client_name %>
 
 <table class="table">
   <thead>
