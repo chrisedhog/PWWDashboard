@@ -51,9 +51,8 @@ class ProfilesController < ApplicationController
   # PATCH/PUT /profiles/1
   # PATCH/PUT /profiles/1.json
   def update
-  
     authorize! :delete, @profile
-  
+
     respond_to do |format|
       if @profile.update(profile_params)
         format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
@@ -85,4 +84,5 @@ class ProfilesController < ApplicationController
     def profile_params
       params.require(:profile).permit(:first_name, :last_name, :company_name, :country, :city, :direct_number, :position, :user_id)
     end
+
 end

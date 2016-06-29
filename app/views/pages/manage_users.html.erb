@@ -10,6 +10,7 @@
             <% end %>
         <hr>
         <p><strong>Add clients:</strong><br>
+        <!-- Test to assign clients to a user -->
             <% @clients.all.each do |client| %>
                 <% if user.clients.include?(client) %>
                 <% else %>

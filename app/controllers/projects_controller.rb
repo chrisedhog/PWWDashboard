@@ -6,6 +6,7 @@ class ProjectsController < ApplicationController
   def index
    # @projects = Project.all
     @projects = Project.all
+    @clients = Client.all
     @myprojects = []
     
     if (current_user.clients.count > 0)

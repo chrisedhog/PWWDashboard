@@ -10,7 +10,12 @@ Rails.application.routes.draw do
   get 'contact', to: 'pages#contact'
   get 'manage_users', to: 'pages#manage_users'
 
-  resources :profiles
+  resources :profiles do
+    member do
+      post 'update2'
+    end
+  end
+
   devise_for :users
   get 'home/index'
   
@@ -18,6 +23,7 @@ Rails.application.routes.draw do
   get 'make_admin/:id', to: 'users#make_admin'
   get 'make_super_admin/:id', to: 'users#make_super_admin'
   get 'remove_roles/:id', to: 'users#remove_roles'
+  get 'assign_clients/:id', to: 'users#assign_clients'
   
   get 'add_client', to: 'pages#add_client'
   get 'remove_client', to: 'pages#remove_client'

@@ -48,14 +48,22 @@
   <% end %>
   </ul>
 </p>
+
 <div>
+<%# form_for(:profile, :url => {:action => 'update', :id => @profile}) do |f|%>
+  <%# f.text_field(:last_name) %>
+  <%# submit_tag("Update") %>
+<%# end %>
+
 	<strong>Assign Clients:</strong>
 	  <% @clients.all.each do |client| %>
 	      <li>
-        <%= check_box_tag "user[client_ids][]", client.id %>
-        <%= client.client_name %>
+          <%= check_box_tag "user[client_ids][]", client.id %>
+          <%= client.client_name %> – <%= ISO3166::Country[client.country] %>
         </li>
 	  <% end %>
+    <%= link_to 'Add Clients', '#', class: 'btn btn-primary' %>
+    <br>
 	  <br>
 </div>
 

@@ -30,6 +30,11 @@
   <li>Redirecting a user to the 'create a profile' page automatically after log in if they haven't set up a profile using "if current_user.profile" <span class="btn btn-success btn-sml">Done!</span></li>
 </ul>
 <hr>
+<ul>Things to ask Matt
+  <li>Have I done the correct thing regarding assigning users to a client by having a URL?</li>
+  <li>Have I filtered the database correctly for projects?</li>
+</ul>
+<hr>
 <% User.all.each do |user| %>
   <%= user.email %> | <%# link_to 'Delete', destroy_me_path, method: :delete, data: { confirm: "You sure?" } %>
   <%= link_to 'Delete User', user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %>

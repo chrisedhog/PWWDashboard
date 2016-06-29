@@ -30,7 +30,12 @@ class UsersController < ApplicationController
     def invite_user
         User.invite!({:email => params[""]}, current_user)
     end
-   
+
+    def assign_clients
+        @user = User.find(params[:id])
+        @user.client_ids = [1,2]
+        redirect_to :back, alert: 'Assigned Users'
+    end
     
 end
 
