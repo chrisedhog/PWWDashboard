@@ -50,6 +50,7 @@
 </p>
 
 <div>
+<h2>Assign Clients:</h2>
 <%= form_for @profile.user, url: user_assign_clients_path(@profile.user) do |f| %>
   <ul><% @clients.each do |client| %>
     <li>
@@ -57,7 +58,7 @@
         <%= client.client_name %>
     </li>
   <% end %></ul>
-  <%= f.submit "Add Clients", class: 'btn btn-default' %>
+  <%= f.submit "Update", class: 'btn btn-default' %>
 <% end %>
 
 </div>
