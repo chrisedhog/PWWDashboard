@@ -17,12 +17,12 @@ class ProfilesController < ApplicationController
 
   # GET /profiles/new
   def new
-  if current_user.profile
-    redirect_to :back, alert: 'You cannot have more than one profile. Please edit your profile through the user menu.'
-  else
-    @profile = Profile.new
-    @clients = Client.all    
-    end
+    if current_user.profile
+      redirect_to :back, alert: 'You cannot have more than one profile. Please edit your profile through the user menu.'
+    else
+      @profile = Profile.new
+      @clients = Client.all    
+      end
   end
 
   # GET /profiles/1/edit
@@ -82,7 +82,7 @@ class ProfilesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
-      params.require(:profile).permit(:first_name, :last_name, :company_name, :country, :city, :direct_number, :position, :user_id)
+      params.require(:profile).permit(:first_name, :last_name, :company_name, :country, :city, :direct_number, :position, :user_id, user_attributes: [:clients])
     end
 
 end

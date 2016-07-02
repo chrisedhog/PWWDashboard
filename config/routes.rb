@@ -9,21 +9,18 @@ Rails.application.routes.draw do
   get 'help', to: 'pages#help'
   get 'contact', to: 'pages#contact'
   get 'manage_users', to: 'pages#manage_users'
+  # delete this soon
+  post 'manage_users', to: 'pages#manage_users'
 
-  resources :profiles do
-    member do
-      post 'update2'
-    end
-  end
+  resources :profiles 
 
   devise_for :users
-  get 'home/index'
   
   # manage admin status
   get 'make_admin/:id', to: 'users#make_admin'
   get 'make_super_admin/:id', to: 'users#make_super_admin'
   get 'remove_roles/:id', to: 'users#remove_roles'
-  get 'assign_clients/:id', to: 'users#assign_clients'
+  # DELETE ME get 'assign_clients/:id', to: 'users#assign_clients'
   
   get 'add_client', to: 'pages#add_client'
   get 'remove_client', to: 'pages#remove_client'
@@ -32,8 +29,12 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'home#index'
-  
-  resources :users, only: :destroy
+
+  resources :users, only: :destroy do
+    patch 'assign_clients', to: 'users#assign_clients', as: 'assign_clients'
+  end
+
+  get 'home/index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

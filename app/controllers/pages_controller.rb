@@ -14,6 +14,10 @@ class PagesController < ApplicationController
   end
   
   def manage_users
+    @name = params[:name]
+    # @user2 = User.find(7)
+    # @user2.clients << [1]
+
     if (current_user.has_role? :admin) || (current_user.has_role? :super_admin)
       @users = User.all
       @clients = Client.all

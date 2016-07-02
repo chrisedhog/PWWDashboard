@@ -1,5 +1,16 @@
 <h1>Manage Users</h1>
 <h5>Select a user below and assign clients to them.</h5>
+<%= form_tag do %>
+    <%= text_field_tag 'name' %>
+    <%= @clients.all.each do |c| %>
+        <%= check_box_tag '[c.id][]', c.id %><br>
+    <% end %>
+    <%= submit_tag 'Submit', class: 'btn btn-positive' %>
+<% end %>
+<% unless @name.nil? %>
+<h4>Your name is now... <%= @name %></h4>
+<% end %>
+<%= User.find(7).clients(1) %>
 
 <% @users.all.each do |user| %>
     <div class="col-lg-4 alert alert-info" style="margin: 5px; background-color: #f0f0f0; border: 1px solid #eaeaea;">

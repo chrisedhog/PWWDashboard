@@ -32,10 +32,15 @@ class UsersController < ApplicationController
     end
 
     def assign_clients
-        @user = User.find(params[:id])
-        @user.client_ids = [1,2]
+        @user = User.find(params[:user_id])
+        @user.update(user_params)
         redirect_to :back, alert: 'Assigned Users'
     end
     
+    private
+
+    def user_params
+        params.require(:user).permit(client_ids: [])
+    end
 end
 
