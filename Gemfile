@@ -16,6 +16,8 @@ gem 'country_select'
 gem 'mailgun-ruby'
 gem 'toastr-rails'
 gem 'tzinfo-data'
+# give me some pretty icons
+gem 'font-awesome-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views

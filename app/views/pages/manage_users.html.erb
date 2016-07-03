@@ -1,5 +1,5 @@
-<h1>Manage Users</h1>
-<h5>Select a user below and assign clients to them.</h5>
+<h1>Manage Staff</h1>
+<p>Click on a staff member's name to manage their clients, account details and assign admins. For more on staff account management, <%= link_to 'click here', helps_path %>.</p>
 <!-- The below code is a basic example of how to send inforation via POST (secure over HTTP) to the view controller. -->
 <%# form_tag do %>
     <%# text_field_tag 'name' %>
@@ -11,23 +11,18 @@
 <%# unless @name.nil? %>
 <!-- <h4>Your name is now... <%= @name %></h4> -->
 <%# end %>
-
-<% @users.all.each do |user| %>
-    <div class="col-lg-4 alert alert-info" style="margin: 5px; background-color: #f0f0f0; border: 1px solid #eaeaea;">
-        <h4><%= user.email %></h4>
-        <p><strong><%= user.email %>'s Clients:</strong></p>
-            <% user.clients.all.each do |client| %>
-                <%= link_to client.client_name, remove_client_path(selected_user: user, client: client), class: 'btn btn-warning btn-sm' %> 
-            <% end %>
-        <hr>
-        <p><strong>Add clients:</strong><br>
-        <!-- Test to assign clients to a user -->
-            <% @clients.all.each do |client| %>
-                <% if user.clients.include?(client) %>
-                <% else %>
-                <%= link_to client.client_name, add_client_path(selected_user: user, client: client) , class: 'btn btn-primary btn-sm' %>
-                <% end %>
-            <% end %>
-        </p>
-    </div>
-<% end %>
+<ul class="list-group col-lg-10">
+    <% @profiles.all.each do |p| %>
+        <li class="list-group-item">
+<!-- LEFT COL -->
+            <span>
+                <strong><%= link_to p.full_name, profile_path(p) %></strong>
+            </span>
+<!-- RIGHT COL -->   
+            <span class="pull-right">
+                <%= link_to '<i class="fa fa-cogs" aria-hidden="true"></i> Manage Clients'.html_safe, profile_path(p) %> | 
+                <%= link_to '<i class="fa fa-user-times" aria-hidden="true"></i> delete user'.html_safe, p.user, method: :delete, data: { confirm: "Warning! You are about to delete this user. This action can not be undone. Do you wish to proceed?" } %>
+            </span>
+        </li>
+    <% end %>
+</ul>
