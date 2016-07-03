@@ -1,69 +1,71 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>First name:</strong>
-  <%= @profile.first_name %>
-</p>
-
-<p>
-  <strong>Last name:</strong>
-  <%= @profile.last_name %>
-</p>
-
-<p>
-  <strong>Company name:</strong>
-  <%= @profile.company_name %>
-</p>
-
-<p>
-  <strong>Country:</strong>
-  <%= @profile.country %>
-</p>
-
-<p>
-  <strong>City:</strong>
-  <%= @profile.city %>
-</p>
-
-<p>
-  <strong>Direct number:</strong>
-  <%= @profile.direct_number %>
-</p>
-
-<p>
-  <strong>Position:</strong>
-  <%= @profile.position %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @profile.user.email %>
-</p>
-
-<p>
-  <strong>Your Clients:</strong>
-  <ul>
-  <% @profile.user.clients.all.each do |c| %>
-    <li><%= c.client_name %> – <%= ISO3166::Country[c.country] %></li>
-  <% end %>
-  </ul>
-</p>
-
 <div>
-<h2>Assign Clients:</h2>
-<%= form_for @profile.user, url: user_assign_clients_path(@profile.user) do |f| %>
-  <ul><% @clients.each do |client| %>
-    <li>
-        <%= check_box_tag "user[client_ids][]", client.id, @profile.user.clients.include?(client) %>
-        <%= client.client_name %>
-    </li>
-  <% end %></ul>
-  <%= f.submit "Update", class: 'btn btn-default' %>
-<% end %>
+<table width="100%" padding="0"><tr>
+  <td width="10%"><%= link_to '<i class="fa fa-angle-double-left"></i> Back'.html_safe , profiles_path, class: 'btn btn-default' %></td>
+  <td width="80%" align="center"><h3><%= @profile.full_name %></h3></td>
+  <td width="10%"><%= link_to 'Edit Profile Details', edit_profile_path(@profile), class: 'btn btn-default' %></td>
+</tr></table>
+</div>
+<hr>
+<div class="col-lg-3 col-sm-4">
+  <h2><%= @profile.full_name %></h2>
 
+  <h4>
+    <strong>Company:</strong>
+    <%= @profile.company_name %> – <%= ISO3166::Country[@profile.country] %>
+  </h4>
+
+  <p>
+    <strong><i class="fa fa-building"></i> Office:</strong>
+    <%= @profile.city %>
+  </p>
+
+  <p>
+    <strong><i class="fa fa-phone"></i> Direct number:</strong>
+    <%= @profile.direct_number %>
+  </p>
+
+  <p>
+    <strong><i class="fa fa-briefcase"></i> Position:</strong>
+    <%= @profile.position %>
+  </p>
+
+  <p>
+    <strong><i class="fa fa-envelope-o"></i> Email Address:</strong>
+    <%= @profile.user.email %>
+  </p>
+  <p>
+    <h4>Your Clients:</h4>
+    <% if @profile.user.clients.empty? %>
+      <p><i>No clients assigned.</i></p>
+    <% else %>
+      <% @profile.user.clients.all.each do |c| %>
+        <span class="label label-default" style="font-size: 10pt; font-weight: 400;"><%= c.client_name %> – <%= ISO3166::Country[c.country] %></span><br><br>
+      <% end %>
+    <% end %>
+  </p>
 </div>
 
-<div style="margin-top: 50px;">
-<%= link_to 'Edit', edit_profile_path(@profile) %> |
-<%= link_to 'Back', profiles_path %>
+<div class="col-lg-9 col-sm-8">
+  <div style="padding-top: 25px;">
+
+<% if (current_user.has_role? :admin) || (current_user.has_role? :super_admin) %>
+  <h4>Manage Clients:</h4>
+  <%= form_for @profile.user, url: user_assign_clients_path(@profile.user) do |f| %>
+    <ul><% @clients.each do |client| %>
+      <li class="checkbox">
+          <%= hidden_field_tag "user[client_ids][]" %>
+          <%= check_box_tag "user[client_ids][]", client.id, @profile.user.clients.include?(client) %>
+          <%= client.client_name %>
+      </li>
+    <% end %></ul>
+    <hr>  
+    <%= f.submit "Update", class: 'btn btn-default' %>
+  <% end %>
+<% end %>  
+
+  
+  </div>
 </div>
+
+  <div class="col-sm-12" style="margin-top: 50px;">
+  </div>

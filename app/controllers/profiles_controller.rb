@@ -12,7 +12,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/1.json
   def show
     authorize! :read, @profile
-    @clients = Client.all
+    @clients = Client.order(client_name: :ASC)
   end
 
   # GET /profiles/new

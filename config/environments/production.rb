@@ -76,13 +76,14 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.default :charset => "utf-8"
 
-  config.action_mailer.smtp_settings = {
-  :address        => 'smtp.mailgun.org',
-  :port           => '587',
+  ActionMailer::Base.smtp_settings = {
+  :user_name => 'chrisedhog',
+  :password => 'clareXsaber1',
+  :domain => 'localhost:3000',
+  :address => 'smtp.sendgrid.net',
+  :port => 587,
   :authentication => :plain,
-  :user_name      => 'postmaster@sandbox3ed8de9510c845c68bf0d867a8f25394.mailgun.org',
-  :password       => ENV['MAILGUN_PASSWORD'],
-  :domain         => 'heroku.com',
+  :enable_starttls_auto => true
   }
 
   # Use default logging formatter so that PID and timestamp are not suppressed.

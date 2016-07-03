@@ -34,7 +34,7 @@ class UsersController < ApplicationController
     def assign_clients
         @user = User.find(params[:user_id])
         @user.update(user_params)
-        redirect_to :back, alert: 'Assigned Users'
+        redirect_to :back, notice: 'Assigned clients have been updated.'
     end
     
     private
