@@ -83,6 +83,13 @@ class ProjectsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def delete_all
+        Project.all.each do |project|
+            project.delete
+        end
+        redirect_to :back
+  end
   
   def import
     Project.import(params[:file])
@@ -99,4 +106,5 @@ class ProjectsController < ApplicationController
     def project_params
       params.require(:project).permit(:project, :project_status, :project_status, :project_name, :completion_date, :completion_month, :budget_revenue, :budget_margin, :budget_margin)
     end
+
 end

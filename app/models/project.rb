@@ -28,11 +28,19 @@ require 'csv'
             p_temp[:budget_margin] = project_hash["de budget margin"].gsub!(/,/,'').to_i
             
             found_project = Project.find_by(:project_name => p_temp[:project_name])
+            found_client = Client.find_by(:client_name => p_temp[:client])
             
-            if found_project
+            if (found_project)
                 found_project.update_attributes(p_temp)
+            elsif (found_client)
+                Project.create!(p_temp)
             else
                 Project.create!(p_temp)
+                Client.create!(client_name: p_temp[:client])
+
+                # unless Client.where(:client_name == p_temp[:client]).count > 0
+                #        Client.create!(client_name: p_temp[:client], company: "test")
+                #   end
             end
         end
     end

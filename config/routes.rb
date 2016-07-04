@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get 'make_admin/:id', to: 'users#make_admin'
   get 'make_super_admin/:id', to: 'users#make_super_admin'
   get 'remove_roles/:id', to: 'users#remove_roles'
+  delete 'delete_all', to: 'projects#delete_all'
   
   get 'add_client', to: 'pages#add_client'
   get 'remove_client', to: 'pages#remove_client'
