@@ -28,14 +28,15 @@
   <li>Created an admin panel restricted to admins and suepr admins only + help page for how to use the site as admin or user + contact page<span class="btn btn-success btn-sm">Done!</span></li>
   <li>Create a 'delete' def in user to log out a user <span class="btn btn-success btn-sm">Done!</span></li>
   <li>Redirecting a user to the 'create a profile' page automatically after log in if they haven't set up a profile using "if current_user.profile" <span class="btn btn-success btn-sml">Done!</span></li>
-</ul>
+</ul><!-- 
 <hr>
 <ul>Things to ask Matt
   <li>Have I done the correct thing regarding assigning users to a client by having a URL?</li>
+  <li>Adding projects adds a client</li>
   <li>Have I filtered the database correctly for projects?</li>
   <li>How do I build out the assign_users form so that it catches errors/incomplete forms and renders the form again?</li>
   <li>How do you create an invisible checkbox for when no other responses are checked?</li>
-</ul>
+</ul> -->
 <hr>
 <% User.all.each do |user| %>
   <%= user.email %> | <%# link_to 'Delete', destroy_me_path, method: :delete, data: { confirm: "You sure?" } %>
