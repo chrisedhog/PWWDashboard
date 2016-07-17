@@ -70,20 +70,21 @@ Rails.application.configure do
 
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
-  config.action_mailer.default_url_options = { :host => 'heroku.com' }
-  #Action mailer config:
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
+	config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default :charset => "utf-8"
-
-  ActionMailer::Base.smtp_settings = {
-  :user_name => 'chrisedhog',
-  :password => 'clareXsaber1',
-  :domain => 'localhost:3000',
-  :address => 'smtp.sendgrid.net',
+  
+  config.action_mailer.smtp_settings = {
+  :api_key => 'key-5d321b99f722e71f759993ee41512b99',
+  :user_name => 'postmaster@sandbox3ed8de9510c845c68bf0d867a8f25394.mailgun.org',
+  :password => '821e5cba66f01f407c6060b68e992204',
+  :domain => 'sandbox3ed8de9510c845c68bf0d867a8f25394.mailgun.org',
+  :address => 'smtp.mailgun.org',
   :port => 587,
-  :authentication => :plain,
-  :enable_starttls_auto => true
+  :authentication => :plain
+  # :enable_starttls_auto => true
   }
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
