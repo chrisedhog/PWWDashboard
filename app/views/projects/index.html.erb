@@ -4,6 +4,15 @@
 <h2>Total Projects: <%= @projects.count %></h2>
 <h3>Your Clients: <%= current_user.clients.count %></h3>
 
+<!-- ADVANCED FILTER -->
+<div class="alert alert-info form-group form-inline">
+<%= form_tag projects_path, :method => 'get' do %>
+  <strong style="padding-right: 50px;">Filter your results:</strong>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", class: 'btn btn-secondary' %>
+<% end %>
+</div>
+
 <table class="table">
   <thead>
     <tr>

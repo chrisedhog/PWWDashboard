@@ -1,0 +1,16 @@
+<div class="alert alert-info form-group form-inline">
+<%= form_for @search_project do |f| %>
+  <strong style="padding-right: 50px;">Filter your results:</strong>
+  <span class="field">
+    <%= f.label :client_name %>
+    <%= f.text_field :client_name, class: 'form-control' %>
+  </span>
+  <span class="field" style="padding-left: 50px">
+    <%= f.label :project_name %>
+    <%= f.text_field :project_name, class: 'form-control' %>
+  </span>
+  <span class="actions pull-right">
+    <%= f.submit "Search", class: 'btn btn-secondary' %>
+  </span>
+<% end %>
+</div>

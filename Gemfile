@@ -13,7 +13,7 @@ gem 'rolify'
 gem 'cancancan'
 gem 'bootstrap-sass'
 gem 'country_select'
-gem 'mailgun-ruby'
+gem 'mailgun_rails'
 gem 'toastr-rails'
 gem 'tzinfo-data'
 # give me some pretty icons
