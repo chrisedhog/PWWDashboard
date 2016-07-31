@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :clients
+  resources :searches
   resources :projects do 
     collection { post :import }
   end

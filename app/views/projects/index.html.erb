@@ -1,8 +1,28 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Projects</h1>
-<h2>Total Projects: <%= @projects.count %></h2>
 <h3>Your Clients: <%= current_user.clients.count %></h3>
+
+<!-- TEST -->
+<hr>
+
+  <% @myproject2.each do |c| %>
+    <%= c.project_name %><br> 
+  <% end %>
+
+<hr>
+<!-- TEST END -->
+
+<div class="alert alert-info">
+<span>Filter Results: </span>
+<span>
+  <%= form_tag projects_path, :method => 'get' do %>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search" %>
+  <% end %>
+</span>
+</div>
+<%= link_to "Advanced Search", new_search_path, class: 'btn btn-secondary' %>
 
 <table class="table">
   <thead>

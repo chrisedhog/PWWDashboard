@@ -39,7 +39,7 @@ Rails.application.configure do
   :domain => 'sandbox3ed8de9510c845c68bf0d867a8f25394.mailgun.org',
   :address => 'smtp.mailgun.org',
   :port => 587,
-  :authentication => :plain
+  :authentication => :plain,
   :enable_starttls_auto => true
   }
 

@@ -1,12 +1,14 @@
 class Project < ActiveRecord::Base
 require 'csv'
-    # def self.import(file)
-    #     CSV.foreach(file.path, headers: false) do |row|
-    #     puts row.inspect
-    #         Project.create! row.to_h
-    #     end
-    # end
-    
+
+#The below is not in use...can't get it to work
+    def sort_projects(user)
+        user.clients.all.each do |myclient|
+            userprojects << Project.where(client: user.myclient.client_name)
+        end
+    end
+
+
     def self.import(file)
         CSV.foreach(file.path, headers: true) do |row|
             
@@ -48,4 +50,13 @@ require 'csv'
     def budget_margin_pct
         ((budget_margin / budget_revenue) * 100).round(2)
     end
+
+    def self.search(search)
+        if search
+            where(["client_name LIKE ?","%#{search}%"])
+        else
+            
+        end
+    end
+
 end
