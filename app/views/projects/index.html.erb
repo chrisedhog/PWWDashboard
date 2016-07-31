@@ -3,16 +3,6 @@
 <h1>Listing Projects</h1>
 <h3>Your Clients: <%= current_user.clients.count %></h3>
 
-<!-- TEST -->
-<hr>
-
-  <% @myproject2.each do |c| %>
-    <%= c.project_name %><br> 
-  <% end %>
-
-<hr>
-<!-- TEST END -->
-
 <div class="alert alert-info">
 <span>Filter Results: </span>
 <span>

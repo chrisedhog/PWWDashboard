@@ -8,42 +8,15 @@ class ProjectsController < ApplicationController
     # all projects belonging to a user:
     @myprojects = []
     @myclients = []
+
+    # create a basic array of client names as strings
     current_user.clients.all.each do |myclient|
             @myclients << myclient.client_name
     end
 
-    @myproject2 = Project.where(client: @myclients)
+    #uses the strings of client names to retrieve only projects for the client the user is assigned to
+    @myprojects = Project.where(client: @myclients).order(client: :asc)
 
-
-    # current_user.clients.all.each do |myclient|
-    #         @myproject2 << Project.find_by(client: myclient.client_name)
-    # end
-
-    # Project.all.each do |project|
-    #   @myproject2 << Project.find_by(client: myclient.client_name)
-    # end
-
-    if (current_user.clients.count > 0)
-      Project.all.each do |proj|
-      i = 0
-        while (i < current_user.clients.count)
-        # THIS PART I'M STRUGGELING WITH - seems to be working now. I loop through my current_user's clients using i,
-        # and if they are the same as in the DB, it will add them to @myprojects. If it isn't, it will skip and just 
-        # increment i by 1.
-
-        #I THINK THIS CAN BE SIMPLIFIED A LOT BY JUST HAVING @MYPROJECTS = Project.find_by("MY CLIENTS")!!!!
-              if (proj.client == @clients.find(current_user.clients[i].id).client_name)
-                @myprojects << proj
-                  i = i + 1
-                  else
-                  i = i + 1
-                end
-            end
-          end
-      else
-        @myprojects = Project.all
-      end
-      
     end
 
   # GET /projects/1
