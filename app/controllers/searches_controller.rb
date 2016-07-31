@@ -14,7 +14,6 @@ class SearchesController < ApplicationController
         @myproject.all.each do |proj|
             @project << proj.project_name
         end
-
     end
 
     def create
@@ -23,7 +22,20 @@ class SearchesController < ApplicationController
     end
 
     def show
-        @search = Search.find(params[:id])
+        @search_results = Search.find(params[:id])
+        @search = Search.new
+        @project = []
+        @client = []
+
+        current_user.clients.all.each do |myclient|
+            @client << myclient.client_name
+        end
+
+        @myproject = Project.where(client: @client)
+
+        @myproject.all.each do |proj|
+            @project << proj.project_name
+        end
     end
 
     private

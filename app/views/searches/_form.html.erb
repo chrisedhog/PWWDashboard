@@ -1,0 +1,18 @@
+<%= form_for @search do |s| %>
+
+<span class="field" style="margin-right: 50px" >
+    <%= s.label :client %>
+    <%= s.select :client, options_for_select(@client) %>
+</span>
+
+<span class="field" style="margin-right: 50px" >
+    <%= s.label :project %>
+    <%# s.select :project, options_for_select(@project) %>
+    <%= s.select :project, ['All', options_for_select(@project)] %>
+</span>
+
+<span class="action">
+    <%= s.submit "search", class: "btn btn-primary" %>
+</span>
+
+<% end %>
