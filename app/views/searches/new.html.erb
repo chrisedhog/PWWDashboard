@@ -9,7 +9,8 @@
 
 <span class="field" style="margin-right: 50px" >
     <%= s.label :project %>
-    <%= s.select :project, options_for_select(@project) %>
+    <%# s.select :project, options_for_select(@project) %>
+    <%= s.select :project, ['All', options_for_select(@project)] %>
 </span>
 
 <span class="action">

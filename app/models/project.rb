@@ -2,10 +2,13 @@ class Project < ActiveRecord::Base
 require 'csv'
 
 #The below is not in use...can't get it to work
-    def sort_projects(user)
-        user.clients.all.each do |myclient|
-            userprojects << Project.where(client: user.myclient.client_name)
+    def sort_projects
+        myclients = []
+        current_user.clients.all.each do |myclient|
+            myclients << myclient.client_name
         end
+
+        return myclients
     end
 
 

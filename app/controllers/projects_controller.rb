@@ -13,11 +13,10 @@ class ProjectsController < ApplicationController
     current_user.clients.all.each do |myclient|
             @myclients << myclient.client_name
     end
-
-    #uses the strings of client names to retrieve only projects for the client the user is assigned to
+    
     @myprojects = Project.where(client: @myclients).order(client: :asc)
 
-    end
+  end
 
   # GET /projects/1
   # GET /projects/1.json

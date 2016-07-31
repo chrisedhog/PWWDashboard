@@ -4,13 +4,15 @@ class SearchesController < ApplicationController
         @search = Search.new
         @project = []
         @client = []
-        
-        Client.all.each do |c|
-            @client << c.client_name
+
+        current_user.clients.all.each do |myclient|
+            @client << myclient.client_name
         end
 
-        Project.all.each do |p|
-            @project << p.project_name
+        @myproject = Project.where(client: @client)
+
+        @myproject.all.each do |proj|
+            @project << proj.project_name
         end
 
     end
@@ -27,7 +29,7 @@ class SearchesController < ApplicationController
     private
 
     def search_params
-        params.require(:search).permit(:project, :clients, :from_date, :to_date)
+        params.require(:search).permit(:project, :client, :from_date, :to_date)
     end
 
 end
