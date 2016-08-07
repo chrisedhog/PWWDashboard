@@ -1,18 +1,24 @@
-<%= form_for @search do |s| %>
+<%= form_for(@search) do |s| %>
 
 <span class="field" style="margin-right: 50px" >
-    <%= s.label :client %>
-    <%= s.select :client, options_for_select(@client) %>
+    <%= s.label :client, collection: @client %>
+    <%= s.collection_select :client, @client, :client_name, :client_name, include_blank: false %>
 </span>
 
 <span class="field" style="margin-right: 50px" >
     <%= s.label :project %>
-    <%# s.select :project, options_for_select(@project) %>
-    <%= s.select :project, ['All', options_for_select(@project)] %>
+    <%= s.collection_select :project, Project.all, :project_name, :project_name, include_blank: true %>
+    <%# s.select :project, ['All', options_for_select(@project)] %>
 </span>
 
 <span class="action">
     <%= s.submit "search", class: "btn btn-primary" %>
 </span>
 
+<% end %>
+
+<%# @project %>
+
+<% @project.each do |myprojects| %>
+     <%= myprojects.client %><br><br>
 <% end %>

@@ -2,18 +2,23 @@ class SearchesController < ApplicationController
 
     def new
         @search = Search.new
-        @project = []
         @client = []
+        @project = [] 
+        @temp = []
 
-        current_user.clients.all.each do |myclient|
-            @client << myclient.client_name
+        current_user.clients.order(client_name: :ASC).all.each do |myclient|
+            @client << Client.find(myclient)
         end
 
         @myproject = Project.where(client: @client)
 
-        @myproject.all.each do |proj|
-            @project << proj.project_name
+        @client.each do |myprojects|
+            # @project << Project.find_by_client(myprojects.client_name)
+            @temp = Project.where(["client LIKE ?", "#{myprojects.client_name}"])
+            @project << temp
+
         end
+
     end
 
     def create
@@ -27,15 +32,15 @@ class SearchesController < ApplicationController
         @project = []
         @client = []
 
-        current_user.clients.all.each do |myclient|
-            @client << myclient.client_name
+        current_user.clients.order(client_name: :ASC).all.each do |myclient|
+            @client << Client.find(myclient)
         end
 
         @myproject = Project.where(client: @client)
-
-        @myproject.all.each do |proj|
-            @project << proj.project_name
-        end
+        @project = @myproject
+        # @myproject.all.each do |proj|
+        #     @project << proj.project_name
+        # end
     end
 
     private

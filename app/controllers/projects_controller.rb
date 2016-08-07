@@ -16,7 +16,7 @@ class ProjectsController < ApplicationController
     
     @myprojects = Project.where(client: @myclients).order(client: :asc)
 
-  end
+	end
 
   # GET /projects/1
   # GET /projects/1.json

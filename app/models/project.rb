@@ -1,6 +1,7 @@
 class Project < ActiveRecord::Base
 require 'csv'
 
+
 #The below is not in use...can't get it to work
     def sort_projects
         myclients = []

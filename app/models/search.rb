@@ -1,7 +1,7 @@
 class Search < ActiveRecord::Base
 
     def search_projects
-
+        
         projects = Project.where(["project_status LIKE ?", "active"])
 
         projects = projects.where(["client LIKE ?", client]) if client.present? 
