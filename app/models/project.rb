@@ -1,6 +1,7 @@
 class Project < ActiveRecord::Base
 require 'csv'
-belongs_to :clients
+has_one :project_clients
+has_one :clients, through: :project_clients
 
 #The below is not in use...can't get it to work
     def sort_projects
@@ -40,9 +41,11 @@ belongs_to :clients
                 found_project.update_attributes(p_temp)
             elsif (found_client)
                 Project.create!(p_temp)
+                found_client.projects << Project.last
             else
                 Project.create!(p_temp)
                 Client.create!(client_name: p_temp[:client])
+                found_client.projects << Project.last
 
                 # unless Client.where(:client_name == p_temp[:client]).count > 0
                 #        Client.create!(client_name: p_temp[:client], company: "test")

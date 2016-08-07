@@ -36,8 +36,10 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
+    @client = Client.find(6)
     @project = Project.new(project_params)
-    
+    @client.projects << Project.last
+
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
