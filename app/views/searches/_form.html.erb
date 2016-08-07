@@ -7,8 +7,7 @@
 
 <span class="field" style="margin-right: 50px" >
     <%= s.label :project %>
-    <%= s.collection_select :project, Project.all, :project_name, :project_name, include_blank: true %>
-    <%# s.select :project, ['All', options_for_select(@project)] %>
+    <%= s.collection_select :project, @project, :project_name, :project_name, include_blank: true %>
 </span>
 
 <span class="action">
@@ -16,6 +15,3 @@
 </span>
 
 <% end %>
-
-<%# @project %>
-

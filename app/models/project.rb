@@ -45,7 +45,8 @@ has_one :clients, through: :project_clients
             else
                 Project.create!(p_temp)
                 Client.create!(client_name: p_temp[:client])
-                found_client.projects << Project.last
+                c_temp = Client.find_by(:client_name => p_temp[:client])
+                c_temp.projects << Project.last
 
                 # unless Client.where(:client_name == p_temp[:client]).count > 0
                 #        Client.create!(client_name: p_temp[:client], company: "test")

@@ -20,5 +20,12 @@
   <%= @client.company %>
 </p>
 
+<p>
+  <strong>Projects:</strong>
+  <% @client.projects.each do |proj| %>
+    <%= proj.project_name %> <br>
+  <% end %>
+</p>
+
 <%= link_to 'Edit', edit_client_path(@client) %> |
 <%= link_to 'Back', clients_path %>
