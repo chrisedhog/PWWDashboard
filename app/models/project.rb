@@ -1,6 +1,6 @@
 class Project < ActiveRecord::Base
 require 'csv'
-
+belongs_to :clients
 
 #The below is not in use...can't get it to work
     def sort_projects

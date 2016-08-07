@@ -6,7 +6,7 @@ class Search < ActiveRecord::Base
 
         projects = projects.where(["client LIKE ?", client]) if client.present? 
 
-        unless project == 'All'
+        unless project == ''
             projects = projects.where(["project_name LIKE ?", project])
         end
         # I was really struggling with the above, the first part "project_name LIKE ?" actually relates to the field in the Projects

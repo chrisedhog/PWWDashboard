@@ -3,7 +3,7 @@ class SearchesController < ApplicationController
     def new
         @search = Search.new
         @client = []
-        @project = [] 
+        @project = Project.all 
         @temp = []
 
         current_user.clients.order(client_name: :ASC).all.each do |myclient|
@@ -14,9 +14,7 @@ class SearchesController < ApplicationController
 
         @client.each do |myprojects|
             # @project << Project.find_by_client(myprojects.client_name)
-            @temp = Project.where(["client LIKE ?", "#{myprojects.client_name}"])
-            @project << temp
-
+            @temp << Project.where(["client LIKE ?", "#{myprojects.client_name}"])
         end
 
     end

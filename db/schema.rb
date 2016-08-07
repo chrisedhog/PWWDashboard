@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160729044749) do
+ActiveRecord::Schema.define(version: 20160807044135) do
+
+  create_table "client_projects", force: :cascade do |t|
+    t.integer  "client_id"
+    t.integer  "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "client_projects", ["client_id"], name: "index_client_projects_on_client_id"
+  add_index "client_projects", ["project_id"], name: "index_client_projects_on_project_id"
 
   create_table "clients", force: :cascade do |t|
     t.string   "client_name"
@@ -20,7 +30,10 @@ ActiveRecord::Schema.define(version: 20160729044749) do
     t.string   "company"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "project_id"
   end
+
+  add_index "clients", ["project_id"], name: "index_clients_on_project_id"
 
   create_table "helps", force: :cascade do |t|
     t.string   "title"
@@ -69,6 +82,13 @@ ActiveRecord::Schema.define(version: 20160729044749) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], name: "index_roles_on_name"
+
+  create_table "search_projects", force: :cascade do |t|
+    t.string   "client_name"
+    t.string   "project_name"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "searches", force: :cascade do |t|
     t.string   "project"

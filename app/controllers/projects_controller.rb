@@ -37,7 +37,7 @@ class ProjectsController < ApplicationController
   # POST /projects.json
   def create
     @project = Project.new(project_params)
-
+    
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, notice: 'Project was successfully created.' }
@@ -93,7 +93,7 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:project, :project_status, :project_status, :project_name, :completion_date, :completion_month, :budget_revenue, :budget_margin, :budget_margin)
+      params.require(:project).permit(:project, :project_status, :project_status, :project_name, :completion_date, :completion_month, :budget_revenue, :budget_margin, :budget_margin, :client_id)
     end
 
 end
