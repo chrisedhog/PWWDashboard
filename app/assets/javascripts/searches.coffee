@@ -12,4 +12,6 @@ jQuery ->
             $('#search_project').html([options])
         else
             $('#search_project').empty()
-    
+
+    $('#search_project').chosen()
+    $('#search_client').chosen()

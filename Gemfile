@@ -16,6 +16,7 @@ gem 'country_select'
 gem 'mailgun-ruby'
 gem 'toastr-rails'
 gem 'tzinfo-data'
+gem 'chosen-rails'
 # give me some pretty icons
 gem 'font-awesome-rails'
 # Use Uglifier as compressor for JavaScript assets

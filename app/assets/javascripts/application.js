@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require chosen-jquery
 //= require bootstrap-sprockets
 //= require toastr
 //= require_tree .
@@ -21,7 +22,7 @@ $(document).ready(function() {
 	
 	
 	 toastr.options = {
-	                  "closeButton": false,
+	                  "closeButton": true,
                       "debug": false,
                       "newestOnTop": false,
                       "progressBar": false,
