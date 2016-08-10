@@ -6,12 +6,19 @@ jQuery ->
     $('#search_client').chosen(width: '400px')
     projects = $('#search_project').html()
     $('#search_client').change ->
-        client = $('#search_client :selected').text()
+        client = $('#search_client :selected').map(() ->
+            return $(this).text();
+        ).get().join().split(',');
         # escaped_client = client.replace(/([ #;&,.+*~\':"!^$[\]()=>|\/@])/g, '\\$1')
         # options = $(projects).filter("optgroup[label='#{escaped_client}']").html()
-        options = $(projects).filter("optgroup[label='#{client}']").html()
-        if options
-            $('#search_project').html([options])
+        options_array = []
+        for c in client
+            options_array.push $(projects).filter('optgroup[label="'+c+'"]').html()
+        if options_array
+            $('#search_project').html(options_array.join(''))
         else
             $('#search_project').empty()
+        $('#search_project').show()
 
+            
+        

@@ -1,8 +1,7 @@
 <%= render 'form' %>
 
 <h1>Results</h1>
-
-<% if @search_results.search_projects.empty? %>
+<% if @search_results.search_projects(@search_results.id).empty? %>
     <p>No Records Found</p>
 <% else %>
     <table class="table">
@@ -21,7 +20,7 @@
   </thead>
 
   <tbody> 
-    <% @search_results.search_projects.each do |project| %>
+    <% @search_results.search_projects(@search_results.id).each do |project| %>
       <tr>
         <td><%= project.client %></td>
         <td><%= project.project_status %></td>

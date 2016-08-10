@@ -18,7 +18,9 @@ class SearchesController < ApplicationController
     end
 
     def create
-        @search = Search.create(search_params)
+        @search = Search.create(search_params['search'])
+        @search.clients << search_params['client']
+        puts "SEARCH +++++"
         redirect_to @search
     end
 
@@ -42,7 +44,7 @@ class SearchesController < ApplicationController
     private
 
     def search_params
-        params.require(:search).permit(:project, :client, :from_date, :to_date)
+        params.require(:search).permit(:from_date, :to_date, :project => [], :client => [])
     end
 
 end

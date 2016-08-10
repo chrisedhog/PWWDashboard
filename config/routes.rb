@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get 'help', to: 'pages#help'
   get 'contact', to: 'pages#contact'
   get 'manage_users', to: 'pages#manage_users'
-
+  
 
   resources :profiles 
 
