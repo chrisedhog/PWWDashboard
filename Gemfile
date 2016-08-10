@@ -20,6 +20,9 @@ gem 'jquery-turbolinks'
 #for intuetive drop down multiple select menues
 gem 'chosen-rails'
 gem 'compass-rails'
+#install charts
+gem 'chartkick'
+gem 'groupdate'
 # give me some pretty icons
 gem 'font-awesome-rails'
 # Use Uglifier as compressor for JavaScript assets

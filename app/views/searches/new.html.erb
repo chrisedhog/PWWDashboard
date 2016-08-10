@@ -3,9 +3,21 @@
 <h1>Results</h1>
 
 
+<%# @project.group_by_day(:completion_date, last: 8, current: true).count do |a| %>
+  <%# a %>
+<%# end %>
+
+<%= scatter_chart Project.pluck(:budget_margin, :budget_revenue), colors: ["red"], ytitle: "Budget Margin", xtitle: "Budget Revenue" %>
+<%= pie_chart Project.group(:client).order(:client).count %>
+<%= pie_chart Project.group(:client).order(:client).limit(3).sum(:budget_revenue), colors: ["red","blue","orange"] %>
+
+<%# line_chart @project.map { |goal|
+    {name: goal.project_name, data: goal.budget_margin.group_by_week(:created_at).count}
+} %>
+
     <table class="table">
   <thead>
-    <tr>
+    <tr> 
       <th>Client</th>
       <th>Project status</th>
       <th>Project name</th>

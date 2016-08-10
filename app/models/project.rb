@@ -5,12 +5,12 @@ has_one :clients, through: :project_clients
 
 #The below is not in use...can't get it to work
     def sort_projects
-        myclients = []
-        current_user.clients.all.each do |myclient|
-            myclients << myclient.client_name
-        end
+        # myclients = []
+        # current_user.clients.all.each do |myclient|
+        #     myclients << myclient.client_name
+        # end
 
-        return myclients
+        # return myclients
     end
 
 
