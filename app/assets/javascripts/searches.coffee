@@ -2,6 +2,8 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 jQuery ->
+    $('#search_project').chosen(width: '400px')
+    $('#search_client').chosen(width: '400px')
     projects = $('#search_project').html()
     $('#search_client').change ->
         client = $('#search_client :selected').text()
@@ -13,5 +15,3 @@ jQuery ->
         else
             $('#search_project').empty()
 
-    $('#search_project').chosen()
-    $('#search_client').chosen()

@@ -12,10 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
+//= require jquery.turbolinks
 //= require chosen-jquery
 //= require bootstrap-sprockets
 //= require toastr
+//= require turbolinks
 //= require_tree .
 
 $(document).ready(function() {

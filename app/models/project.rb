@@ -27,12 +27,12 @@ has_one :clients, through: :project_clients
             
             p_temp = {}
             p_temp[:client] = project_hash["client"]
-            p_temp[:project_status] = project_hash["project status"]
+            p_temp[:project_status] = project_hash["pipeline stage"]
             p_temp[:project_name] = project_hash["project no/name"]
             p_temp[:completion_date] = project_hash["completion date"]
-            p_temp[:completion_month] = project_hash["project completion date month/year"]
-            p_temp[:budget_revenue] = project_hash["de budget revenue"].gsub!(/,/,'').to_i
-            p_temp[:budget_margin] = project_hash["de budget margin"].gsub!(/,/,'').to_i
+            p_temp[:completion_month] = project_hash["completion date month/year"]
+            p_temp[:budget_revenue] = project_hash["projected revenue"].gsub!(/,/,'').to_i
+            p_temp[:budget_margin] = project_hash["projected margin (ext wtime)"].gsub!(/,/,'').to_i
             
             found_project = Project.find_by(:project_name => p_temp[:project_name])
             found_client = Client.find_by(:client_name => p_temp[:client])
@@ -47,10 +47,6 @@ has_one :clients, through: :project_clients
                 Client.create!(client_name: p_temp[:client])
                 c_temp = Client.find_by(:client_name => p_temp[:client])
                 c_temp.projects << Project.last
-
-                # unless Client.where(:client_name == p_temp[:client]).count > 0
-                #        Client.create!(client_name: p_temp[:client], company: "test")
-                #   end
             end
         end
     end
