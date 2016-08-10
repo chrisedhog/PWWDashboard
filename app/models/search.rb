@@ -2,7 +2,8 @@ class Search < ActiveRecord::Base
 
     def search_projects
         
-        projects = Project.where(["project_status LIKE ?", "active"])
+        # projects = Project.where(["project_status LIKE ?", "active"]) Not using this as filtered drop downs still display pitches in the list
+        projects = Project.all
 
         projects = projects.where(["client LIKE ?", client]) if client.present? 
 

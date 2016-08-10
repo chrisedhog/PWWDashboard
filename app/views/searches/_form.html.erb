@@ -2,12 +2,12 @@
 
 <span class="field" style="margin-right: 50px" >
     <%= s.label :client, collection: @client %>
-    <%= s.collection_select :client, @client, :client_name, :client_name, include_blank: false %>
+    <%= s.collection_select :client, @client, :client_name, :client_name, {}, {multiple: true} %>
 </span>
 
 <span class="field" style="margin-right: 50px" >
     <%= s.label :project %>
-    <%= s.collection_select :project, @project, :project_name, :project_name, include_blank: true %>
+    <%= s.grouped_collection_select :project, @client, :projects, :client_name, :project_name, :project_name, {}, {multiple: true}  %>
 </span>
 
 <span class="action">

@@ -1,1 +1,38 @@
 <%= render 'form' %>
+
+<h1>Results</h1>
+
+
+    <table class="table">
+  <thead>
+    <tr>
+      <th>Client</th>
+      <th>Project status</th>
+      <th>Project name</th>
+      <th>Completion date</th>
+      <th>Completion month</th>
+      <th>Budget revenue</th>
+      <th>Budget margin</th>
+      <th>Budget margin %</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody> 
+    <% @project.each do |project| %>
+      <tr>
+        <td><%= project.client %></td>
+        <td><%= project.project_status %></td>
+        <td><%= project.project_name %></td>
+        <td><%= project.completion_date %></td>
+        <td><%= project.completion_month %></td>
+        <td><%= project.budget_revenue %></td>
+        <td><%= project.budget_margin %></td>
+        <td><%= project.budget_margin_pct %></td>
+        <td><%= link_to 'Show', project %></td>
+        <td><%= link_to 'Edit', edit_project_path(project) %></td>
+        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
