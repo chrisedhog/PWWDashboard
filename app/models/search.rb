@@ -7,6 +7,7 @@ has_many :projects, through: :search_all_projects
 
     def search_projects(id)
 
+        # The ID is coming through correctly. Just need to correctly sort through the data based off the client and proejct join tables
         puts id.to_s
         puts "************|||||||||"
 

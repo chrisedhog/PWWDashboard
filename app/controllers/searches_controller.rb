@@ -20,7 +20,9 @@ class SearchesController < ApplicationController
     def create
         @search = Search.create(search_params['search'])
         @search.clients << search_params['client']
+        
         puts "SEARCH +++++"
+        # Here I think is where I need to get say the client ID's and << them into @search
         redirect_to @search
     end
 

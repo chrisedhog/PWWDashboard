@@ -36,12 +36,18 @@ has_many :searches, through: :search_all_projects
             p_temp[:completion_month] = project_hash["completion date month/year"]
             p_temp[:budget_revenue] = project_hash["projected revenue"].gsub!(/,/,'').to_i
             p_temp[:budget_margin] = project_hash["projected margin (ext wtime)"].gsub!(/,/,'').to_i
+            p_temp[:created_at] = project_hash["Date created"].to_datetime
             
-            found_project = Project.find_by(:project_name => p_temp[:project_name])
+            found_project = Project.order('created_at DESC').find_by(:project_name => p_temp[:project_name])
             found_client = Client.find_by(:client_name => p_temp[:client])
             
             if (found_project)
-                found_project.update_attributes(p_temp)
+                if (found_project.created_at.month == Time.zone.now.month )
+                    found_project.update_attributes(p_temp)
+                else
+                    Project.create!(p_temp)
+                    found_client.projects << Project.last
+                end
             elsif (found_client)
                 Project.create!(p_temp)
                 found_client.projects << Project.last
