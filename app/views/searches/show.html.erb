@@ -1,5 +1,9 @@
 <%= render 'form' %>
 
+<%= line_chart @found_search.projects.map { |project|
+    {name: project.project_name, data: project.class.group(:created_month).sum(:budget_margin)}
+} %>
+
 <h1>Results</h1>
 <% if @found_search.projects.empty? %>
     <p>No Records Found</p>

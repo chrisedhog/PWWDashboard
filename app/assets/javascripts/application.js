@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.turbolinks
-//= require ajax-chosen-jquery
+//= require chosen-jquery
 //= require chartkick
 //= require bootstrap-sprockets
 //= require toastr

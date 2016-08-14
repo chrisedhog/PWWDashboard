@@ -13,15 +13,8 @@
 
 ActiveRecord::Schema.define(version: 20160813055214) do
 
-  create_table "client_projects", force: :cascade do |t|
-    t.integer  "client_id"
-    t.integer  "project_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "client_projects", ["client_id"], name: "index_client_projects_on_client_id"
-  add_index "client_projects", ["project_id"], name: "index_client_projects_on_project_id"
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "clients", force: :cascade do |t|
     t.string   "client_name"
@@ -33,7 +26,7 @@ ActiveRecord::Schema.define(version: 20160813055214) do
     t.integer  "project_id"
   end
 
-  add_index "clients", ["project_id"], name: "index_clients_on_project_id"
+  add_index "clients", ["project_id"], name: "index_clients_on_project_id", using: :btree
 
   create_table "helps", force: :cascade do |t|
     t.string   "title"
@@ -58,7 +51,7 @@ ActiveRecord::Schema.define(version: 20160813055214) do
     t.datetime "updated_at",    null: false
   end
 
-  add_index "profiles", ["user_id"], name: "index_profiles_on_user_id"
+  add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
 
   create_table "project_clients", force: :cascade do |t|
     t.integer  "client_id"
@@ -67,8 +60,8 @@ ActiveRecord::Schema.define(version: 20160813055214) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "project_clients", ["client_id"], name: "index_project_clients_on_client_id"
-  add_index "project_clients", ["project_id"], name: "index_project_clients_on_project_id"
+  add_index "project_clients", ["client_id"], name: "index_project_clients_on_client_id", using: :btree
+  add_index "project_clients", ["project_id"], name: "index_project_clients_on_project_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
     t.string   "client"
@@ -90,8 +83,8 @@ ActiveRecord::Schema.define(version: 20160813055214) do
     t.datetime "updated_at"
   end
 
-  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
-  add_index "roles", ["name"], name: "index_roles_on_name"
+  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
+  add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
   create_table "search_all_projects", force: :cascade do |t|
     t.integer  "project_id"
@@ -100,8 +93,8 @@ ActiveRecord::Schema.define(version: 20160813055214) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "search_all_projects", ["project_id"], name: "index_search_all_projects_on_project_id"
-  add_index "search_all_projects", ["search_id"], name: "index_search_all_projects_on_search_id"
+  add_index "search_all_projects", ["project_id"], name: "index_search_all_projects_on_project_id", using: :btree
+  add_index "search_all_projects", ["search_id"], name: "index_search_all_projects_on_search_id", using: :btree
 
   create_table "search_clients", force: :cascade do |t|
     t.integer  "client_id"
@@ -110,15 +103,8 @@ ActiveRecord::Schema.define(version: 20160813055214) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "search_clients", ["client_id"], name: "index_search_clients_on_client_id"
-  add_index "search_clients", ["search_id"], name: "index_search_clients_on_search_id"
-
-  create_table "search_projects", force: :cascade do |t|
-    t.string   "client_name"
-    t.string   "project_name"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-  end
+  add_index "search_clients", ["client_id"], name: "index_search_clients_on_client_id", using: :btree
+  add_index "search_clients", ["search_id"], name: "index_search_clients_on_search_id", using: :btree
 
   create_table "searches", force: :cascade do |t|
     t.string   "project"
@@ -136,8 +122,8 @@ ActiveRecord::Schema.define(version: 20160813055214) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "user_clients", ["client_id"], name: "index_user_clients_on_client_id"
-  add_index "user_clients", ["user_id"], name: "index_user_clients_on_user_id"
+  add_index "user_clients", ["client_id"], name: "index_user_clients_on_client_id", using: :btree
+  add_index "user_clients", ["user_id"], name: "index_user_clients_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -153,6 +139,7 @@ ActiveRecord::Schema.define(version: 20160813055214) do
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.string   "unconfirmed_email"
     t.integer  "failed_attempts",        default: 8,     null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
@@ -169,19 +156,29 @@ ActiveRecord::Schema.define(version: 20160813055214) do
     t.integer  "invitations_count",      default: 0
   end
 
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true
-  add_index "users", ["invitations_count"], name: "index_users_on_invitations_count"
-  add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id"
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
+  add_index "users", ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
+  add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
 
   create_table "users_roles", id: false, force: :cascade do |t|
     t.integer "user_id"
     t.integer "role_id"
   end
 
-  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
+  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
+  add_foreign_key "clients", "projects"
+  add_foreign_key "profiles", "users"
+  add_foreign_key "project_clients", "clients"
+  add_foreign_key "project_clients", "projects"
+  add_foreign_key "search_all_projects", "projects"
+  add_foreign_key "search_all_projects", "searches"
+  add_foreign_key "search_clients", "clients"
+  add_foreign_key "search_clients", "searches"
+  add_foreign_key "user_clients", "clients"
+  add_foreign_key "user_clients", "users"
 end

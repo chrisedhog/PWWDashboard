@@ -76,4 +76,8 @@ has_many :searches, through: :search_all_projects
        "[" + created_at.strftime('%b %Y') + "] " + project_name unless created_at.nil? || project_name.nil?
     end
 
+    def created_month
+       created_at.strftime('%b %Y')
+    end
+
 end

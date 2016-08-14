@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 jQuery ->
-    $('#search_project').chosen(width: '400px')
+    # $('#search_project').chosen(width: '400px')
     $('#search_client').chosen(width: '400px')
     projects = $('#search_project').html()
     $('#search_client').change ->
