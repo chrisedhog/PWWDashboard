@@ -1,7 +1,7 @@
 <%= render 'form' %>
 
 <h1>Results</h1>
-<% if @search_results.search_projects(@search_results.id).empty? %>
+<% if @found_search.projects.empty? %>
     <p>No Records Found</p>
 <% else %>
     <table class="table">
@@ -21,7 +21,7 @@
   </thead>
 
   <tbody> 
-    <% @search_results.search_projects(@search_results.id).each do |project| %>
+    <% @found_search.projects.each do |project| %>
       <tr>
         <td><%= project.client %></td>
         <td><%= project.project_status %></td>
@@ -31,7 +31,7 @@
         <td><%= project.budget_revenue %></td>
         <td><%= project.budget_margin %></td>
         <td><%= project.budget_margin_pct %></td>
-        <td><%= project.update_at %></td>
+        <td><%= project.updated_at %></td>
         <td><%= link_to 'Show', project %></td>
         <td><%= link_to 'Edit', edit_project_path(project) %></td>
         <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>

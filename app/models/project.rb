@@ -34,8 +34,8 @@ has_many :searches, through: :search_all_projects
             p_temp[:project_name] = project_hash["project no/name"]
             p_temp[:completion_date] = project_hash["completion date"]
             p_temp[:completion_month] = project_hash["completion date month/year"]
-            p_temp[:budget_revenue] = project_hash["projected revenue"].gsub!(/,/,'').to_i
-            p_temp[:budget_margin] = project_hash["projected margin (ext wtime)"].gsub!(/,/,'').to_i
+            p_temp[:budget_revenue] = project_hash["projected revenue"].gsub!(/,/,'').to_f
+            p_temp[:budget_margin] = project_hash["projected margin (ext wtime)"].gsub!(/,/,'').to_f
             p_temp[:created_at] = project_hash["Date created"].to_datetime
             
             found_project = Project.order('created_at DESC').find_by(:project_name => p_temp[:project_name])
@@ -70,6 +70,10 @@ has_many :searches, through: :search_all_projects
         else
             
         end
+    end
+
+    def project_name_with_date
+       "[" + created_at.strftime('%b %Y') + "] " + project_name unless created_at.nil? || project_name.nil?
     end
 
 end

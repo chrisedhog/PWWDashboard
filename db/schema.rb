@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160810084859) do
+ActiveRecord::Schema.define(version: 20160813055214) do
 
   create_table "client_projects", force: :cascade do |t|
     t.integer  "client_id"
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 20160810084859) do
     t.string   "project_name"
     t.date     "completion_date"
     t.date     "completion_month"
-    t.float    "budget_revenue"
+    t.decimal  "budget_revenue"
     t.decimal  "budget_margin"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false

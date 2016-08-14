@@ -10,24 +10,38 @@ class SearchesController < ApplicationController
         end
 
         @client.each do |client|
-            client.projects.each do |myprojects|
+            client.projects.select(:project_name).distinct do |myprojects|
                 @project << myprojects
+            puts myprojects.to_s
+            puts "=========== WOOOOOW ========"
             end
         end
 
     end
 
     def create
-        @search = Search.create(search_params['search'])
-        @search.clients << search_params['client']
-        
-        puts "SEARCH +++++"
+        clients = search_params[:client]
+        projects = search_params[:project]
+        search_params.delete("client")
+        search_params.delete("project")
+        @search = Search.create(search_params)
+
+        clients.each do |c|
+            temp_client = Client.find_by_id(c)
+            @search.clients << temp_client unless temp_client.nil?
+        end
+        projects.each do |p|
+            temp_proj = Project.find_by_id(p)
+            @search.projects << temp_proj unless temp_proj.nil?
+        end
         # Here I think is where I need to get say the client ID's and << them into @search
         redirect_to @search
     end
 
     def show
-        @search_results = Search.find(params[:id])
+        @found_search = Search.find(params[:id])
+
+#       NEW SEARCH FORM
         @search = Search.new
         @project = []
         @client = []
@@ -42,11 +56,12 @@ class SearchesController < ApplicationController
             end
         end
     end
+#   END NEW SEARCH FORM
 
     private
 
     def search_params
-        params.require(:search).permit(:from_date, :to_date, :project => [], :client => [])
+        params.require(:search).permit(:from_date, :to_date, project: [], client: [])
     end
 
 end

@@ -18,6 +18,7 @@ gem 'toastr-rails'
 gem 'tzinfo-data'
 gem 'jquery-turbolinks'
 #for intuetive drop down multiple select menues
+gem 'ajax-chosen-rails', '~> 0.2.3'
 gem 'chosen-rails'
 gem 'compass-rails'
 #install charts

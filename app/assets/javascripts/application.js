@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.turbolinks
-//= require chosen-jquery
+//= require ajax-chosen-jquery
 //= require chartkick
 //= require bootstrap-sprockets
 //= require toastr
@@ -40,5 +40,6 @@ $(document).ready(function() {
                       "showMethod": "fadeIn",
                       "hideMethod": "fadeOut"
 	              }
+
 	
 	});

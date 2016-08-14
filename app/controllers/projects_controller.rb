@@ -14,7 +14,8 @@ class ProjectsController < ApplicationController
             @myclients << myclient.client_name
     end
     
-    @myprojects = Project.where(client: @myclients).order(client: :asc)
+    @myprojects = Project.where(client: @myclients,project_status: "Contracted").order(client: :asc)
+
 
 	end
 
