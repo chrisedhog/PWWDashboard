@@ -12,8 +12,6 @@ class SearchesController < ApplicationController
         @client.each do |client|
             client.projects.select(:project_name).distinct do |myprojects|
                 @project << myprojects
-            puts myprojects.to_s
-            puts "=========== WOOOOOW ========"
             end
         end
 
@@ -22,6 +20,10 @@ class SearchesController < ApplicationController
     def create
         clients = search_params[:client]
         projects = search_params[:project]
+
+        clients = current_user.clients.all.pluck(:id) if clients.size == 1
+        projects = current_user.client_projects if projects.size == 1
+
         search_params.delete("client")
         search_params.delete("project")
         @search = Search.create(search_params)

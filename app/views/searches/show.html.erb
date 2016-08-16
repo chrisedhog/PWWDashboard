@@ -1,8 +1,37 @@
 <%= render 'form' %>
 
-<%= line_chart @found_search.projects.map { |project|
-    {name: project.project_name, data: project.class.group(:created_month).sum(:budget_margin)}
-} %>
+<%# line_chart Project.where(id: @found_search.projects.pluck(:id)).group_by_month(:created_at).sum(:budget_margin) %>
+<% current_data = Project.where(id: @found_search.projects.pluck(:id)).group_by_month(:created_at).sum(:budget_margin) %>
+
+<div id="year-sold-pos" style="height: 250px;"></div>
+<script>
+new Morris.Line({
+  element: 'year-sold-pos',
+  data: [
+    <% 
+    def month_year(d)
+      d.strftime("%B %Y")
+    end
+    current_data.each do |d| 
+    
+      tmp_date = d[0].to_datetime
+      month_str = tmp_date.strftime("%b, %Y") %>
+    <%= 
+    "{ Year: \"#{tmp_date}\" , a:".html_safe + d[1].to_s + " , b: #{Search.past_sample_data['Jan 2015']}" + ", c: 9 },"
+    %>
+
+    <% end %>
+  ],
+  xkey: 'Year',
+  ykeys: ['a', 'b', 'c'],
+  labels: ['Live Data', '2015', '2016'],
+  lineColors: ['#0a85ee','#ee780f','#000000'],
+  lineWidth: [ '3', '1', '1'],
+  hideHover: 'auto',
+  continuousLine: 'true',
+  resize: 'true'
+  });
+</script>
 
 <h1>Results</h1>
 <% if @found_search.projects.empty? %>

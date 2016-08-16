@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>PWWDashboard</title>
+  <title>Project Dashboard – Alpha Version 0.1</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
 		<%= javascript_include_tag "https://www.google.com/jsapi" %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -19,8 +19,11 @@
 	 <% end %>
    
 <!-- Temp navbar for dev -->
-<% if user_signed_in? %>
-    <%= render 'layouts/nav' %>
+<% if (user_signed_in?) && (current_user.email.to_s == "chris.edhogben@gmail.com") %>
+    	<%= render 'layouts/navdev' %>
+		<% elsif user_signed_in? %>
+			<%= render 'layouts/nav' %>
+			<% else %>
 <% end %>
    
 <div class="container">      

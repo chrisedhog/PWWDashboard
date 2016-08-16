@@ -1,8 +1,8 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<h1>Hi there!</h1>
+<h4>Welcome to the very early build of the Project Dashboard</h4>
 <% if current_user.profile %>
-      <span>Welcome back, <%= current_user.email %>,
-      you're role is
+      <span>Logged in as: <%= current_user.email %>,
+      your role is
         <% if current_user.has_role? :admin %>
             <span><strong>admin</strong></span>
             <% else current_user.has_role? :super_admin %>
@@ -12,34 +12,42 @@
   <% else %>
       <span>How about creating <%= link_to 'a profile?', new_profile_path %></span>
 <% end %>
-      <hr>
-<strong>I'm up to...</strong>
-<ul>
-  <li><span class="btn btn-danger btn-sm">CURRENT</span> Trying to render the 'search' form on the the search results page. This is working, however perhaps if I render the form and use the way the 'edit' page works, it will remember the preferences.</li>
-  <li>Trying to make a form with check boxes that updates the user's clients (on the Profiles/show/ page).</li>
-  <il>Changed 'clients' to 'projects'; need to create join tables for A) Users/Projects B) Clients/Projects</il>
-  <li>Need to work out a way that uploading a CSV file to projects adds the project to a client (using the client field in the CSV file)</li>
+<% if current_user.email.to_s == "chris.edhogben@gmail.com" %>
+        <hr>
+  <strong>I'm up to...</strong>
+  <ul>
+    <li><span class="btn btn-danger btn-sm">CURRENT</span> Trying to render the 'search' form on the the search results page. This is working, however perhaps if I render the form and use the way the 'edit' page works, it will remember the preferences.</li>
+    <li>Trying to make a form with check boxes that updates the user's clients (on the Profiles/show/ page).</li>
+    <il>Changed 'clients' to 'projects'; need to create join tables for A) Users/Projects B) Clients/Projects</il>
+    <li>Need to work out a way that uploading a CSV file to projects adds the project to a client (using the client field in the CSV file)</li>
+    <hr>
+    <li>Creating Help pages, need to print out all help files, display categoriess on the side and manage who can see what + make use of anchor_ids</li>
+    <li>Work out how to change colour/styling of the alerts + use FontAwesome rather than images for icons.</li>
+    <li>Creating the user_controller and making an admin and a super admin <span class="btn btn-warning btn-sm">In Progress, privelages for admin/super need to be defined</span></li>
+    <li>Need to limit profile create to 1 per user and prevent them from seeing anyone else's profiles</li>
+    <li>Need to restrict access to view/edit user profiles to ONLY the user it belongs to (unless an admin)</li>
+    <li>Added CanCan parameters to restrict who can edit profils/view profiles (admin can edit/see all, users can only see/edit their own)<span class="btn btn-success btn-sm">Done!</span></li>
+    <li>Created an admin panel restricted to admins and suepr admins only + help page for how to use the site as admin or user + contact page<span class="btn btn-success btn-sm">Done!</span></li>
+    <li>Create a 'delete' def in user to log out a user <span class="btn btn-success btn-sm">Done!</span></li>
+    <li>Redirecting a user to the 'create a profile' page automatically after log in if they haven't set up a profile using "if current_user.profile" <span class="btn btn-success btn-sml">Done!</span></li>
+  </ul><!-- 
   <hr>
-  <li>Creating Help pages, need to print out all help files, display categoriess on the side and manage who can see what + make use of anchor_ids</li>
-  <li>Work out how to change colour/styling of the alerts + use FontAwesome rather than images for icons.</li>
-  <li>Creating the user_controller and making an admin and a super admin <span class="btn btn-warning btn-sm">In Progress, privelages for admin/super need to be defined</span></li>
-  <li>Need to limit profile create to 1 per user and prevent them from seeing anyone else's profiles</li>
-  <li>Need to restrict access to view/edit user profiles to ONLY the user it belongs to (unless an admin)</li>
-  <li>Added CanCan parameters to restrict who can edit profils/view profiles (admin can edit/see all, users can only see/edit their own)<span class="btn btn-success btn-sm">Done!</span></li>
-  <li>Created an admin panel restricted to admins and suepr admins only + help page for how to use the site as admin or user + contact page<span class="btn btn-success btn-sm">Done!</span></li>
-  <li>Create a 'delete' def in user to log out a user <span class="btn btn-success btn-sm">Done!</span></li>
-  <li>Redirecting a user to the 'create a profile' page automatically after log in if they haven't set up a profile using "if current_user.profile" <span class="btn btn-success btn-sml">Done!</span></li>
-</ul><!-- 
-<hr>
-<ul>Things to ask Matt
-  <li>Have I done the correct thing regarding assigning users to a client by having a URL?</li>
-  <li>Adding projects adds a client</li>
-  <li>Have I filtered the database correctly for projects?</li>
-  <li>How do I build out the assign_users form so that it catches errors/incomplete forms and renders the form again?</li>
-  <li>How do you create an invisible checkbox for when no other responses are checked?</li>
-</ul> -->
-<hr>
-<% User.all.each do |user| %>
-  <%= user.email %> | <%# link_to 'Delete', destroy_me_path, method: :delete, data: { confirm: "You sure?" } %>
-  <%= link_to 'Delete User', user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %>
+  <ul>Things to ask Matt
+    <li>Have I done the correct thing regarding assigning users to a client by having a URL?</li>
+    <li>Have I filtered the database correctly for projects?</li>
+  </ul> -->
+  <hr>
+  <% User.all.each do |user| %>
+    <%= user.email %> | <%# link_to 'Delete', destroy_me_path, method: :delete, data: { confirm: "You sure?" } %>
+    <%= link_to 'Delete User', user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %>
+  <% end %>
+  <% else %>
+  <hr>
+  <strong>Dean, please see below before using the site:</strong>
+  <ul>
+    <li>Remember that you'll need to <%= link_to 'assign yourself', manage_users_path %> to clients otherwise you won't see anything in the Sold Position page</li>
+    <li>You can use the <%= link_to 'admin panel', admin_path %> to upload a CSV file</li>
+    <li>The new column is labled 'location' so the first row in the table you upload will just need to be the same.</li>
+    <li>I haven't had time just yet to create the 'select all projects' button, so for now, when filtering, click a project then hit "Ctrl+A" and that should select all. Then just hit search.</li>
+  </ul>
 <% end %>
