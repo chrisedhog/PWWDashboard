@@ -21,7 +21,8 @@ gem 'jquery-turbolinks'
 gem 'chosen-rails'
 gem 'compass-rails'
 #install charts
-gem 'chartkick'
+gem 'c3-rails'
+gem 'd3_rails'
 gem 'groupdate'
 # give me some pretty icons
 gem 'font-awesome-rails'

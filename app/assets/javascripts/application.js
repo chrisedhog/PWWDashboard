@@ -14,7 +14,8 @@
 //= require jquery_ujs
 //= require jquery.turbolinks
 //= require chosen-jquery
-//= require chartkick
+//= require c3
+//= require d3
 //= require bootstrap-sprockets
 //= require toastr
 //= require turbolinks

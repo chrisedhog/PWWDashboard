@@ -3,34 +3,40 @@
 <%# line_chart Project.where(id: @found_search.projects.pluck(:id)).group_by_month(:created_at).sum(:budget_margin) %>
 <% current_data = Project.where(id: @found_search.projects.pluck(:id)).group_by_month(:created_at).sum(:budget_margin) %>
 
-<div id="year-sold-pos" style="height: 250px;"></div>
-<script>
-new Morris.Line({
-  element: 'year-sold-pos',
-  data: [
-    <% 
-    def month_year(d)
-      d.strftime("%B %Y")
-    end
-    current_data.each do |d| 
-    
-      tmp_date = d[0].to_datetime
-      month_str = tmp_date.strftime("%b, %Y") %>
-    <%= 
-    "{ Year: \"#{tmp_date}\" , a:".html_safe + d[1].to_s + " , b: #{Search.past_sample_data['Jan 2015']}" + ", c: 9 },"
-    %>
+<% @found_search.projects.where { |project| 
+  {name: project.project_name, data: project.class.group(:created_month).sum(:budget_margin)}
+} %>
+<%%>
 
-    <% end %>
-  ],
-  xkey: 'Year',
-  ykeys: ['a', 'b', 'c'],
-  labels: ['Live Data', '2015', '2016'],
-  lineColors: ['#0a85ee','#ee780f','#000000'],
-  lineWidth: [ '3', '1', '1'],
-  hideHover: 'auto',
-  continuousLine: 'true',
-  resize: 'true'
-  });
+
+<%= @found_search.projects.first.project_name %>
+<% @test = [{"name" => "Chris", "age" => "28"}, {"name" => "Matt", "age" => "34"}].to_a %>
+<%= @test.last %>
+<% puts "TEST ================== " %>
+<% @found_search.projects.each do |data| %>
+          <%= data.id.to_s + ", " %>
+         <% end %>
+<hr>
+
+
+
+<div id="test" ></div>
+
+<script>
+var chart = c3.generate({
+    bindto: '#test',
+    data: {
+      columns: [
+        ['2015 Actual', 30, 200, 100, 400, 150, 250],
+        ['2016 Actual', 
+        <% @found_search.projects.each do |data| %>
+          <%= data.id %>, 
+         <% end %>
+         ],
+         ['2016 Projected', 50, 20, 10, 40, 15, 25]
+      ]
+    }
+});
 </script>
 
 <h1>Results</h1>
