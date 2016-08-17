@@ -42,6 +42,7 @@ class SearchesController < ApplicationController
 
     def show
         @found_search = Search.find(params[:id])
+        @year_comparison = Search.find(params[:id]).projects.group_by_month(:created_at)
 
 #       NEW SEARCH FORM
         @search = Search.new

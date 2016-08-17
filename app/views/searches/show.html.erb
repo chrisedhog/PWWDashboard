@@ -6,7 +6,6 @@
 <% @found_search.projects.where { |project| 
   {name: project.project_name, data: project.class.group(:created_month).sum(:budget_margin)}
 } %>
-<%%>
 
 
 <%= @found_search.projects.first.project_name %>
@@ -18,7 +17,9 @@
          <% end %>
 <hr>
 
-
+<% @year_comparison.each do |yr| %>
+  <%= yr %>
+<% end %>
 
 <div id="test" ></div>
 
@@ -30,7 +31,7 @@ var chart = c3.generate({
         ['2015 Actual', 30, 200, 100, 400, 150, 250],
         ['2016 Actual', 
         <% @found_search.projects.each do |data| %>
-          <%= data.id %>, 
+          <%= data.budget_margin %>, 
          <% end %>
          ],
          ['2016 Projected', 50, 20, 10, 40, 15, 25]
