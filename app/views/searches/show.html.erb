@@ -17,7 +17,7 @@ new Morris.Line({
       tmp_date = d[0].to_datetime
       month_str = tmp_date.strftime("%b, %Y") %>
     <%= 
-    "{ Year: \"#{tmp_date}\" , a:".html_safe + d[1].to_s + " , b: #{Search.past_sample_data['Jan 2015']}" + ", c: 9 },"
+    "{ Year: \"#{tmp_date}\" , a:".html_safe + d[1].to_s + " , b: #{Search.past_sample_data[d]}" + ", c: 9 },"
     %>
 
     <% end %>

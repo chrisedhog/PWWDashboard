@@ -16,8 +16,7 @@ has_many :projects, through: :search_all_projects
 
         search.clients.each do |c|
             puts c.client_name.to_s
-        end
-        
+        end        
 
         return projects
     end
