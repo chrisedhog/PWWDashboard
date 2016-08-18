@@ -6,6 +6,9 @@
 <%# @found_search.projects.where { |project| 
   {name: project.project_name, data: project.class.group(:created_month).sum(:budget_margin)}
 } %>
+         <% current_data.each do |data| %>
+          <%= data[1] %>, 
+         <% end %>
 
 <div id="test" ></div>
 
@@ -13,9 +16,14 @@
 var chart = c3.generate({
     bindto: '#test',
     data: {
-      x: 'date',
+      x: 'x',
       columns: [
-        ['date', '2015-01-01', '2015-02-01', '2015-03-01', '2015-04-01', '2015-05-01', '2015-06-01', '2015-07-01', '2015-08-01', '2015-09-01', '2015-10-01', '2015-11-01', '2015-12-01', ],
+        // ['x', '2013-01-01', '2013-02-02', '2013-03-03', '2013-04-04', '2013-05-05', '2013-06-06', '2013-07-07', '2013-08-08', '2013-09-09', '2013-10-10', '2013-11-11', '2013-12-12'],
+        ['x', 
+        <% Search.past_sample_data.each do |past| %>
+          '<%= past[0] %>',  
+        <% end %>
+        ],
         ['2016 Actual', 
         <% current_data.each do |data| %>
           <%= data[1] %>, 
@@ -39,20 +47,52 @@ var chart = c3.generate({
         }
     },
     axis : {
-        y : {
+      x: {
+            type: 'timeseries',
+            tick: {
+                culling: false,
+                format: '%b'
+            }
+        },
+        y: {
             tick: {
             format: d3.format("$,.2f")
             }
-        },
-        x : {
-            type : 'timeseries',
-            tick: {
-              format: '%b' // format string is also available for timeseries data
-            }
         }
-    }
+    },
 });
-</script>
+ </script>
+
+ <script>
+// var chart = c3.generate({
+//     bindto: '#test',
+//     data: {
+//         x: 'x',
+//         columns: [
+//             ['x', '2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04', '2013-01-05', '2013-01-06', '2013-01-07', '2013-01-08', '2013-01-09', '2013-01-10', '2013-01-11', '2013-01-12'],
+//             ['sample', 3256870.0, 3825580.0, 4394290.0, 5550000.0, 6044000.0, 7100000.0, 7700000.0, 8154000.0, 8860000.0, 9200000.0, 9500000.0, 9600328.45,],
+//             ['sample2', 3916752.11, 4626643.23, 5146264.25, 6148854.32, 6640724.57, 7409783.48, 8263054.46, 8488001.54, 8837809.1, 9068047.68, 9402019.15, 9513505.72,],
+//             ['sample3', 4983561.64, 6950684.94, 7797260.28, 8326027.4, 10016438.36, 11474546.84, 14830940.66, 7630563.96,]
+
+//         ]
+//     },
+//     axis: {
+//         x: {
+//             type: 'timeseries',
+//             tick: {
+//                 count: 4,
+//                 format: '%Y-%m-%d'
+//             }
+//         },
+//         y: {
+//             tick: {
+//             format: d3.format("$,.2f")
+//             }
+//         }
+//     }
+// });
+//  </script>
+
 
 <h1>Results</h1>
 <% if @found_search.projects.empty? %>
