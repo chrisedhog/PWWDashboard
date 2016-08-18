@@ -3,23 +3,9 @@
 <%# line_chart Project.where(id: @found_search.projects.pluck(:id)).group_by_month(:created_at).sum(:budget_margin) %>
 <% current_data = Project.where(id: @found_search.projects.pluck(:id)).group_by_month(:created_at).sum(:budget_margin) %>
 
-<% @found_search.projects.where { |project| 
+<%# @found_search.projects.where { |project| 
   {name: project.project_name, data: project.class.group(:created_month).sum(:budget_margin)}
 } %>
-
-
-<%= @found_search.projects.first.project_name %>
-<% @test = [{"name" => "Chris", "age" => "28"}, {"name" => "Matt", "age" => "34"}].to_a %>
-<%= @test.last %>
-<% puts "TEST ================== " %>
-<% @found_search.projects.each do |data| %>
-          <%= data.id.to_s + ", " %>
-         <% end %>
-<hr>
-
-<% @year_comparison.each do |yr| %>
-  <%= yr %>
-<% end %>
 
 <div id="test" ></div>
 
@@ -27,15 +13,43 @@
 var chart = c3.generate({
     bindto: '#test',
     data: {
+      x: 'date',
       columns: [
-        ['2015 Actual', 30, 200, 100, 400, 150, 250],
+        ['date', '2015-01-01', '2015-02-01', '2015-03-01', '2015-04-01', '2015-05-01', '2015-06-01', '2015-07-01', '2015-08-01', '2015-09-01', '2015-10-01', '2015-11-01', '2015-12-01', ],
         ['2016 Actual', 
-        <% @found_search.projects.each do |data| %>
-          <%= data.budget_margin %>, 
+        <% current_data.each do |data| %>
+          <%= data[1] %>, 
          <% end %>
          ],
-         ['2016 Projected', 50, 20, 10, 40, 15, 25]
-      ]
+         ['2016 Projected', 
+        <% Search.forecast_sample_data.each do |forecast| %>
+          <%= forecast[1] %>, 
+         <% end %>
+         ],
+        ['2015 Actual', 
+        <% Search.past_sample_data.each do |past| %>
+          <%= past[1] %>, 
+         <% end %>
+         ]
+      ],
+      colors: {
+            '2016 Actual': '#2cd554',
+            '2016 Projected': '#1bc4fc',
+            '2015 Actual': '#fdaf5a'
+        }
+    },
+    axis : {
+        y : {
+            tick: {
+            format: d3.format("$,.2f")
+            }
+        },
+        x : {
+            type : 'timeseries',
+            tick: {
+              format: '%b' // format string is also available for timeseries data
+            }
+        }
     }
 });
 </script>
