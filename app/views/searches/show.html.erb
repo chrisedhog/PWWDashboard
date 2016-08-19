@@ -17,16 +17,16 @@ new Morris.Line({
       tmp_date = d[0].to_datetime
       month_str = tmp_date.strftime("%b, %Y") %>
     <%= 
-    "{ Year: \"#{tmp_date}\" , a:".html_safe + d[1].to_s + " , b: #{Search.past_sample_data[d]}" + ", c: 9 },"
+    "{ Year: \"#{tmp_date}\" , a:".html_safe + d[1].to_s + "},"
     %>
 
     <% end %>
   ],
   xkey: 'Year',
-  ykeys: ['a', 'b', 'c'],
-  labels: ['Live Data', '2015', '2016'],
-  lineColors: ['#0a85ee','#ee780f','#000000'],
-  lineWidth: [ '3', '1', '1'],
+  ykeys: ['a'],
+  labels: ['Live Data'],
+  lineColors: ['#0a85ee'],
+  lineWidth: [ '3'],
   hideHover: 'auto',
   continuousLine: 'true',
   resize: 'true'
