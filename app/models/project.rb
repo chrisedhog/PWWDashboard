@@ -36,7 +36,8 @@ has_many :searches, through: :search_all_projects
             p_temp[:completion_month] = project_hash["completion date month/year"]
             p_temp[:budget_revenue] = project_hash["projected revenue"].gsub!(/,/,'').to_f
             p_temp[:budget_margin] = project_hash["projected margin (ext wtime)"].gsub!(/,/,'').to_f
-            p_temp[:created_at] = project_hash["Date created"].to_datetime
+            # p_temp[:created_at] = project_hash["Date created"].to_datetime
+            p_temp[:created_at] = Time.zone.parse(project_hash["Date created"]).utc
             p_temp[:location] = project_hash["location"]
             
             found_project = Project.order('created_at DESC').find_by(:project_name => p_temp[:project_name])
