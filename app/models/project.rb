@@ -4,7 +4,7 @@ has_one :project_clients
 has_one :clients, through: :project_clients
 
 has_many :search_all_projects
-has_many :searches, through: :search_all_projects
+has_many :searches, through: :search_all_projects, dependent: :destroy
 
 #The below is not in use...can't get it to work
     def sort_projects

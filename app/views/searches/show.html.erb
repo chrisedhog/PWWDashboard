@@ -6,9 +6,6 @@
 <%# @found_search.projects.where { |project| 
   {name: project.project_name, data: project.class.group(:created_month).sum(:budget_margin)}
 } %>
-         <% current_data.each do |data| %>
-          <%= data[1] %>, <br>
-         <% end %>
 
 <div id="test" ></div>
 
@@ -18,17 +15,17 @@ var chart = c3.generate({
     data: {
       x: 'x',
       columns: [
-        // ['x', '2013-01-01', '2013-02-02', '2013-03-03', '2013-04-04', '2013-05-05', '2013-06-06', '2013-07-07', '2013-08-08', '2013-09-09', '2013-10-10', '2013-11-11', '2013-12-12'],
-        ['x', 
-        <% Search.past_sample_data.each do |past| %>
-          '<%= past[0] %>',  
-        <% end %>
-        ],
+        ['x', '2016-01-01', '2016-02-02', '2016-03-03', '2016-04-04', '2016-05-05', '2016-06-06', '2016-07-07', '2016-08-08', '2016-09-09', '2016-10-10', '2016-11-11', '2016-12-12'],
+        // ['x', 
+        // <% Search.past_sample_data.each do |past| %>
+        //   '<%= past[0] %>',  
+        // <% end %>
+        // ],
         ['2016 Actual', 
         <% current_data.each do |data| %>
           <%= data[1] %>, 
          <% end %>
-         ],
+         null, null, null, null],
          ['2016 Projected', 
         <% Search.forecast_sample_data.each do |forecast| %>
           <%= forecast[1] %>, 
