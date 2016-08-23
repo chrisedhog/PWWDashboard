@@ -14,7 +14,10 @@ Rails.application.routes.draw do
 
   resources :profiles 
 
-  devise_for :users
+  devise_for :users,
+    :controllers => {
+      :sessions => "sessions"
+    }
   
   # manage admin status
   get 'make_admin/:id', to: 'users#make_admin'

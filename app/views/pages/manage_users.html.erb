@@ -12,13 +12,19 @@
 <!-- <h4>Your name is now... <%= @name %></h4> -->
 <%# end %>
 <ul class="list-group col-lg-10">
-    <% @profiles.all.each do |p| %>
+    <% @profiles.each do |p| %>
         <li class="list-group-item">
 <!-- LEFT COL -->
             <span>
-                <strong><%= link_to p.full_name, profile_path(p) %></strong><br>
+                <strong><%= link_to p.full_name, profile_path(p) %></strong>
+                    <% if p.user.has_role? :admin %>
+                       – admin
+                    <% elsif p.user.has_role? :super_admin %>
+                        – super admin
+                    <% end %>
+                <br>
                 <strong>Clients: </strong>
-                <% p.user.clients.all.each do |c| %>
+                <% p.user.clients.each do |c| %>
                     <i><%= link_to @clients.find(c).client_name, client_path(c) %>  </i>
                 <% end %>
             </span>
@@ -26,8 +32,12 @@
             <span class="pull-right">
                 <%= link_to '<i class="fa fa-cogs" aria-hidden="true"></i> Manage Clients'.html_safe, profile_path(p) %> 
                 <% if (current_user == p.user) || (p.user.has_role? :super_admin) %>
+                <% elsif p.user.has_role? :admin %>
+                    |  <%= link_to '<i class="fa fa-user-times" aria-hidden="true"></i> delete user'.html_safe, p.user, method: :delete, data: { confirm: "Warning! You are about to delete this user. This action can not be undone. Do you wish to proceed?" } %>
+                    | <%= link_to 'Remove Admin', '../remove_roles/' + p.user.id.to_s %>
                 <% else %>
                     |  <%= link_to '<i class="fa fa-user-times" aria-hidden="true"></i> delete user'.html_safe, p.user, method: :delete, data: { confirm: "Warning! You are about to delete this user. This action can not be undone. Do you wish to proceed?" } %>
+                    | <%= link_to 'Make Admin', '../make_admin/' + p.user.id.to_s %>
                 <% end %>
             </span>
         </li>

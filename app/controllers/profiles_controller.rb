@@ -1,5 +1,6 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
+  skip_before_action :profile_set, only: [:new]
 
   # GET /profiles
   # GET /profiles.json
