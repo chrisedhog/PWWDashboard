@@ -7,11 +7,11 @@
   {name: project.project_name, data: project.class.group(:created_month).sum(:budget_margin)}
 } %>
 
-<div id="test" ></div>
+<div id="sold-position" ></div>
 
 <script>
 var chart = c3.generate({
-    bindto: '#test',
+    bindto: '#sold-position',
     data: {
       x: 'x',
       columns: [
@@ -24,7 +24,9 @@ var chart = c3.generate({
         <% current_data.each do |data| %>
           <%= data[1] %>, 
          <% end %>
-         null, null, null, null],
+        // taking the past data (usually a full year) and subtracting it from the current data I'll be graphing
+        // I then use that number to determine how many 'null's I must return to avoid the tool tip being stuck at the right of the graph
+         <%= 'null, ' * (Search.past_sample_data.count - current_data.count) %>],
          ['2016 Projected', 
         <% Search.forecast_sample_data.each do |forecast| %>
           <%= forecast[1] %>, 
