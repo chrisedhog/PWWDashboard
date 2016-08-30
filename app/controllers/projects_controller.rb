@@ -81,6 +81,8 @@ class ProjectsController < ApplicationController
 
   def delete_all
         Project.all.each do |project|
+          c = Client.find_by_client_name project.client
+          c.projects.delete project if c
             project.delete
         end
         redirect_to :back

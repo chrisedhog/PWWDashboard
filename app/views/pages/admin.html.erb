@@ -1,6 +1,18 @@
 <h1>Admin Panel</h1>
 <p>Welcome to the admin panel. This will be expanded upon to be much more comprehensive, however, below you will find some useful optoins including; the ability to assign yourself to more clients, remove yourself from clients and import a new CSV file</p>
 
+<%= simple_form_for(:user, :url => user_invitation_path) do |f| %>
+    <%= f.error_notification %>
+    
+<div class="form-inputs">
+    <%= f.input :email %>
+</div>
+
+<div class="form-actions">
+    <%= f.button :submit %>
+</div>
+<% end %>
+
 <h3>Manage your clients</h3>
 <%= link_to 'Update clients >', profile_path(current_user), class: 'btn btn-default' %>
 

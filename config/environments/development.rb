@@ -26,22 +26,19 @@ Rails.application.configure do
   # number of complex assets.
   config.assets.debug = true
   
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.perform_deliveries = true
-	config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default :charset => "utf-8"
-  
   config.action_mailer.smtp_settings = {
-  :api_key => 'key-5d321b99f722e71f759993ee41512b99',
-  :user_name => 'postmaster@sandbox3ed8de9510c845c68bf0d867a8f25394.mailgun.org',
-  :password => '821e5cba66f01f407c6060b68e992204',
-  :domain => 'sandbox3ed8de9510c845c68bf0d867a8f25394.mailgun.org',
-  :address => 'smtp.mailgun.org',
-  :port => 587,
-  :authentication => :plain,
-  :enable_starttls_auto => true
+    address: "smtp.gmail.com",
+    port: 587,
+    user_name: "chris.edhogben@gmail.com",
+    password: "hxtjdvtuishzzlqj",
+    authentication: 'plain',
+    enable_starttls_auto: true
   }
+
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default :charset => "utf-8"
 
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.

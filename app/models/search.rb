@@ -11,13 +11,10 @@ has_many :projects, through: :search_all_projects
 
         projects = []
         search = Search.find(id)
-        puts search.clients.first.to_s
-        puts "********========="
 
         search.clients.each do |c|
             puts c.client_name.to_s
         end
-        
 
         return projects
     end

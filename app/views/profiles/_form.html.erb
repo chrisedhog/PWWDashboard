@@ -4,13 +4,13 @@
   <div class="form-inputs">
     <%= f.input :first_name, placeholder: 'First Name' %>
     <%= f.input :last_name, placeholder: 'Last Name' %>
-    <%= f.input :company_name, placeholder: 'George P. Johnson' %>
-    <%= f.input :country, priority: ['Australia'] %>
+    <%= f.input :company_name, collection: ['ARGONAUT','G7','George P. Johnson','Junior', 'Juxt','Motive','Partners + Napier','Pitch', 'Project','Raumtechnik','School','Shoptology','Spinifex Group'], selected: ['George P. Johnson'] %>
+    <%= f.input :country, priority: ['Australia', 'United States', 'United Kingdom'] %>
     <%= f.input :city, placeholder: 'Sydney' %>
     <%= f.input :direct_number, placeholder: '0434005830' %>
     <%= f.input :position, placeholder: 'Producer' %>
   </div>
-  
+
   <div class="form-actions">
     <%= f.button :submit %>
   </div>
