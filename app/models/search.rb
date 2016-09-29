@@ -5,6 +5,13 @@ has_many :clients, through: :search_clients
 has_many :search_all_projects
 has_many :projects, through: :search_all_projects
 
+validates_each :from_date do |record, attr, value|
+    #   record.errors.add(attr, 'must be in the past') if value >= Time.now.to_date
+        if value >= Time.now.to_date
+            record.errors.add(attr, 'must be in the past')
+        end
+    end
+
     def search_projects(id)
 
         # The ID is coming through correctly. Just need to correctly sort through the data based off the client and proejct join tables
@@ -18,6 +25,13 @@ has_many :projects, through: :search_all_projects
 
         return projects
     end
+
+    def current_datab
+        current_data = Project.where(id: @found_search.projects.pluck(:id)).group_by_month(:created_at).sum(:budget_margin)
+
+        return current_data
+    end
+
 
     def self.past_sample_data
         { "2015-01-01" => 3256870.00.to_d,

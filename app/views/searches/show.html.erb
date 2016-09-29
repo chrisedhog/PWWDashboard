@@ -1,11 +1,33 @@
 <%= render 'form' %>
 
+<div class="alert warning"><%= "From: " + @found_search.from_date.to_s + " To: " + @found_search.to_date.to_s %></div>
+
 <%# line_chart Project.where(id: @found_search.projects.pluck(:id)).group_by_month(:created_at).sum(:budget_margin) %>
 <% current_data = Project.where(id: @found_search.projects.pluck(:id)).group_by_month(:created_at).sum(:budget_margin) %>
 
-<%# @found_search.projects.where { |project| 
-  {name: project.project_name, data: project.class.group(:created_month).sum(:budget_margin)}
-} %>
+<% test_A = Client.all.map do |clients|  %>
+  <% [clients.client_name, clients.projects.map { |p| [p.id , p.project_name ] } ] %>
+<% end %>
+<!-- The above is using map, to map a sub table of client (projects) and saving the desired files as an array. You get two arrays becayse the first loop creates an array [client hash + [the mapped projects array] -->
+<!-- result below -->
+<% test_A.each do |a| %>
+  <% a[1] %>
+<% end %>
+
+<% test_B = Project.all.map do |p| %>
+  <% [p.id , p.project_name ] %>
+<% end %>
+<!-- The above is a test of just mapping one set of table data to an array. Success! The result is below. -->
+<%= test_B %>
+
+<% test_data = Project.where(id: @found_search.projects.pluck(:id))%>
+<% test_data = test_data.where("project_status = ?", "Contracted") %>
+<% test_data_sorted = test_data.group_by_month(:created_at).sum(:budget_margin) %>
+<!-- The above proves that I can sort in stages, eg by projects, then refine by project status, then do time window -->
+
+<% test_data.each do |m| %>
+<%= m.project_status %> <br>
+<% end %>
 
 <div id="sold-position" ></div>
 
@@ -21,7 +43,7 @@ var chart = c3.generate({
         <% end %>
         ],
         ['2016 Actual', 
-        <% current_data.each do |data| %>
+        <% test_data_sorted.each do |data| %>
           <%= data[1] %>, 
          <% end %>
         // taking the past data (usually a full year) and subtracting it from the current data I'll be graphing
@@ -61,37 +83,6 @@ var chart = c3.generate({
 });
  </script>
 
- <script>
-// var chart = c3.generate({
-//     bindto: '#test',
-//     data: {
-//         x: 'x',
-//         columns: [
-//             ['x', '2013-01-01', '2013-01-02', '2013-01-03', '2013-01-04', '2013-01-05', '2013-01-06', '2013-01-07', '2013-01-08', '2013-01-09', '2013-01-10', '2013-01-11', '2013-01-12'],
-//             ['sample', 3256870.0, 3825580.0, 4394290.0, 5550000.0, 6044000.0, 7100000.0, 7700000.0, 8154000.0, 8860000.0, 9200000.0, 9500000.0, 9600328.45,],
-//             ['sample2', 3916752.11, 4626643.23, 5146264.25, 6148854.32, 6640724.57, 7409783.48, 8263054.46, 8488001.54, 8837809.1, 9068047.68, 9402019.15, 9513505.72,],
-//             ['sample3', 4983561.64, 6950684.94, 7797260.28, 8326027.4, 10016438.36, 11474546.84, 14830940.66, 7630563.96,]
-
-//         ]
-//     },
-//     axis: {
-//         x: {
-//             type: 'timeseries',
-//             tick: {
-//                 count: 4,
-//                 format: '%Y-%m-%d'
-//             }
-//         },
-//         y: {
-//             tick: {
-//             format: d3.format("$,.2f")
-//             }
-//         }
-//     }
-// });
-//  </script>
-
-
 <h1>Results</h1>
 <% if @found_search.projects.empty? %>
     <p>No Records Found</p>
@@ -113,7 +104,7 @@ var chart = c3.generate({
   </thead>
 
   <tbody> 
-    <% @found_search.projects.each do |project| %>
+    <% test_data.each do |project| %>
       <tr>
         <td><%= project.client %></td>
         <td><%= project.project_status %></td>
