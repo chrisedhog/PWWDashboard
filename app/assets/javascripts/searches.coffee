@@ -5,9 +5,15 @@ jQuery ->
     $('#search_project').chosen(width: '400px')
     $('#search_client').chosen(width: '400px')
     # The code in the brackets augments the names of the days to be 3 letters, rather than the stnd 2
-    $('#search_from_date, #search_to_date').datepicker({
+    $('#search_from_date').datepicker({
     dayNamesMin: [ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" ]
-    dateFormat: "d MM yy"
+    dateFormat: "d M yy"
+    defaultDate: "-1y"
+    })
+
+    $('#search_to_date').datepicker({
+    dayNamesMin: [ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" ]
+    dateFormat: "d M yy"
     })
 
     projects = $('#search_project').html()

@@ -17,6 +17,7 @@ gem 'toastr-rails'
 gem 'tzinfo-data'
 gem 'jquery-turbolinks'
 gem 'jquery-ui-rails'
+gem 'validates_timeliness', '~> 4.0'
 #for intuetive drop down multiple select menues
 gem 'chosen-rails'
 gem 'compass-rails'

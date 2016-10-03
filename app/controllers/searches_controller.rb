@@ -36,8 +36,17 @@ class SearchesController < ApplicationController
             temp_proj = Project.find_by_id(p)
             @search.projects << temp_proj unless temp_proj.nil?
         end
-        # Here I think is where I need to get say the client ID's and << them into @search
-        redirect_to @search
+
+        respond_to do |format|
+            if @search.save
+                format.html { redirect_to @search }
+                format.json { render :show, status: :created, location: @search }
+            else
+            puts @search.errors
+                format.html { render :new, errors: @search.errors }
+                format.json { render json: @search.errors, status: :unprocessable_entity }
+            end
+        end
     end
 
     def show

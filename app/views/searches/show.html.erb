@@ -1,6 +1,8 @@
 <%= render 'form' %>
 
-<div class="alert warning"><%= "From: " + @found_search.from_date.to_s + " To: " + @found_search.to_date.to_s %></div>
+<div class="alert alert-warning"><%= "From: " + @found_search.from_date.to_s + " To: " + @found_search.to_date.to_s %>
+<br> <p>From: </p><%= Date.today-1.year %> <p> To: </p><%= Date.today %>
+</div>
 
 <%# line_chart Project.where(id: @found_search.projects.pluck(:id)).group_by_month(:created_at).sum(:budget_margin) %>
 <% current_data = Project.where(id: @found_search.projects.pluck(:id)).group_by_month(:created_at).sum(:budget_margin) %>
@@ -14,19 +16,18 @@
   <% a[1] %>
 <% end %>
 
-<% test_B = Project.all.map do |p| %>
-  <% [p.id , p.project_name ] %>
-<% end %>
-<!-- The above is a test of just mapping one set of table data to an array. Success! The result is below. -->
-<%= test_B %>
-
 <% test_data = Project.where(id: @found_search.projects.pluck(:id))%>
 <% test_data = test_data.where("project_status = ?", "Contracted") %>
+<% test_data = test_data.where("created_at >= ? AND created_at <= ?", (Date.today-12.month), Date.today) %>
 <% test_data_sorted = test_data.group_by_month(:created_at).sum(:budget_margin) %>
 <!-- The above proves that I can sort in stages, eg by projects, then refine by project status, then do time window -->
 
 <% test_data.each do |m| %>
 <%= m.project_status %> <br>
+<% end %>
+
+<% test_data_sorted.each do |d| %>
+    <%= d[0] %> 
 <% end %>
 
 <div id="sold-position" ></div>

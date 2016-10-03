@@ -5,12 +5,8 @@ has_many :clients, through: :search_clients
 has_many :search_all_projects
 has_many :projects, through: :search_all_projects
 
-validates_each :from_date do |record, attr, value|
-    #   record.errors.add(attr, 'must be in the past') if value >= Time.now.to_date
-        if value >= Time.now.to_date
-            record.errors.add(attr, 'must be in the past')
-        end
-    end
+validates_date :to_date, :on_or_after => :from_date, :on_or_after_message => "From date cannot be after To date"
+validates_date :from_date, :to_date, :on_or_before => :today
 
     def search_projects(id)
 
