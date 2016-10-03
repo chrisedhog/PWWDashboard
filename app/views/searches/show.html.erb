@@ -1,7 +1,7 @@
 <%= render 'form' %>
 
-<div class="alert alert-warning"><%= "From: " + @found_search.from_date.to_s + " To: " + @found_search.to_date.to_s %>
-<br> <p>From: </p><%= Date.today-1.year %> <p> To: </p><%= Date.today %>
+<div class="alert alert-warning">
+<br> <p>From: </p><%= @found_search.from_date.to_s %> <p> To: </p><%= @found_search.to_date.to_s %>
 </div>
 
 <%# line_chart Project.where(id: @found_search.projects.pluck(:id)).group_by_month(:created_at).sum(:budget_margin) %>
@@ -11,24 +11,9 @@
   <% [clients.client_name, clients.projects.map { |p| [p.id , p.project_name ] } ] %>
 <% end %>
 <!-- The above is using map, to map a sub table of client (projects) and saving the desired files as an array. You get two arrays becayse the first loop creates an array [client hash + [the mapped projects array] -->
-<!-- result below -->
-<% test_A.each do |a| %>
-  <% a[1] %>
-<% end %>
 
-<% test_data = Project.where(id: @found_search.projects.pluck(:id))%>
-<% test_data = test_data.where("project_status = ?", "Contracted") %>
-<% test_data = test_data.where("created_at >= ? AND created_at <= ?", (Date.today-12.month), Date.today) %>
-<% test_data_sorted = test_data.group_by_month(:created_at).sum(:budget_margin) %>
-<!-- The above proves that I can sort in stages, eg by projects, then refine by project status, then do time window -->
-
-<% test_data.each do |m| %>
-<%= m.project_status %> <br>
-<% end %>
-
-<% test_data_sorted.each do |d| %>
-    <%= d[0] %> 
-<% end %>
+<!-- below I'm trying to query my own hash, not sure how to do "is bettween this date and that date" -->
+<%= Search.get_budget_margin_histdata_by_search_date(Search.past_sample_data2, @found_search.from_date, @found_search.to_date) %>
 
 <div id="sold-position" ></div>
 
@@ -39,12 +24,12 @@ var chart = c3.generate({
       x: 'x',
       columns: [
         ['x', 
-        <% Search.past_sample_data.each do |past| %>
-          '<%= past[0] %>',  
+        <% @found_search.budget_margin_by_month.each do |d| %>
+          '<%= d[0].strftime('%F') %>',  
         <% end %>
         ],
         ['2016 Actual', 
-        <% test_data_sorted.each do |data| %>
+        <% @found_search.budget_margin_by_month.each do |data| %>
           <%= data[1] %>, 
          <% end %>
         // taking the past data (usually a full year) and subtracting it from the current data I'll be graphing
@@ -105,7 +90,7 @@ var chart = c3.generate({
   </thead>
 
   <tbody> 
-    <% test_data.each do |project| %>
+    <% @found_search.projects.each do |project| %>
       <tr>
         <td><%= project.client %></td>
         <td><%= project.project_status %></td>
