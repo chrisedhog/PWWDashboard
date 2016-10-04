@@ -14,7 +14,7 @@ development:
   <<: *default
   username: myapp
   password: password1
-  database: chogben
+  database: myapp
   host: localhost
 
 # Warning: The database defined as "test" will be erased and
@@ -22,7 +22,6 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: db/test.sqlite3
 
 production:
   <<: *default

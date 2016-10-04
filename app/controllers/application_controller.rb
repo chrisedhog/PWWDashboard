@@ -1,10 +1,17 @@
 class ApplicationController < ActionController::Base
-  before_action :authenticate_user! #:check_pass_changed
+  before_action :authenticate_user!, :profile_set #:check_pass_changed 
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   
+  def profile_set
+    if user_signed_in?
+      unless current_user.profile
+        redirect_to new_profile_path
+      end
+    end
+  end
   # Couldn't get the below to work, it keeps saying too many
   #redirects & I also couldn't get the correct form to show up (where only the password could be changed, not the email)
   #   def check_pass_changed

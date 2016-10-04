@@ -2,5 +2,11 @@
 @import "bootstrap";
 @import "toastr";
 @import "chosen";
+@import "c3";
 @import "font-awesome";
-@import "morris";
+@import "datepicker";
+
+// Chart Properties
+.c3-line {
+    stroke-width: 2px;
+}

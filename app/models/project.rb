@@ -4,7 +4,7 @@ has_one :project_clients
 has_one :clients, through: :project_clients
 
 has_many :search_all_projects
-has_many :searches, through: :search_all_projects
+has_many :searches, through: :search_all_projects, dependent: :destroy
 
 #The below is not in use...can't get it to work
     def sort_projects
@@ -38,26 +38,31 @@ has_many :searches, through: :search_all_projects
             p_temp[:budget_margin] = project_hash["projected margin (ext wtime)"].gsub!(/,/,'').to_f
             # p_temp[:created_at] = project_hash["Date created"].to_datetime
             p_temp[:created_at] = Time.zone.parse(project_hash["Date created"]).utc
+<<<<<<< HEAD
             p_temp[:location] = project_hash["location"]
+=======
+            p_temp[:location] = project_hash["location"] if project_hash["location"]
+>>>>>>> c3_charts
             
             found_project = Project.order('created_at DESC').find_by(:project_name => p_temp[:project_name])
-            found_client = Client.find_by(:client_name => p_temp[:client])
+            found_client = Client.find_by(:client_name => p_temp[:client]) || Client.create!(:client_name => p_temp[:client])
             
-            if (found_project)
+            if (found_project) && (found_client)
                 if (found_project.created_at.month == Time.zone.now.month )
                     found_project.update_attributes(p_temp)
                 else
                     Project.create!(p_temp)
                     found_client.projects << Project.last
                 end
-            elsif (found_client)
-                Project.create!(p_temp)
-                found_client.projects << Project.last
+            # elsif (found_client)
+            #     Project.create!(p_temp)
+            #     found_client.projects << Project.last
             else
                 Project.create!(p_temp)
-                Client.create!(client_name: p_temp[:client])
-                c_temp = Client.find_by(:client_name => p_temp[:client])
-                c_temp.projects << Project.last
+                found_client.projects << Project.last
+                # Client.create!(client_name: p_temp[:client])
+                # c_temp = Client.find_by(:client_name => p_temp[:client])
+                # c_temp.projects << Project.last
             end
         end
     end

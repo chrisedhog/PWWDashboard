@@ -2,8 +2,22 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 jQuery ->
-    # $('#search_project').chosen(width: '400px')
+    $('#search_project').chosen(width: '400px')
     $('#search_client').chosen(width: '400px')
+    # The code in the brackets augments the names of the days to be 3 letters, rather than the stnd 2
+    $('#search_from_date').datepicker({
+    dayNamesMin: [ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" ]
+    changeYear: true
+    dateFormat: "d M yy"
+    defaultDate: "-1y"
+    })
+
+    $('#search_to_date').datepicker({
+    dayNamesMin: [ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" ]
+    changeYear: true
+    dateFormat: "d M yy"
+    })
+
     projects = $('#search_project').html()
     $('#search_client').change ->
         client = $('#search_client :selected').map(() ->
@@ -20,5 +34,4 @@ jQuery ->
             $('#search_project').empty()
         $('#search_project').show()
 
-            
-        
+  
