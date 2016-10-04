@@ -34,15 +34,11 @@ has_many :searches, through: :search_all_projects, dependent: :destroy
             p_temp[:project_name] = project_hash["project no/name"]
             p_temp[:completion_date] = project_hash["completion date"]
             p_temp[:completion_month] = project_hash["completion date month/year"]
-            p_temp[:budget_revenue] = project_hash["projected revenue"].gsub!(/,/,'').to_f if project_hash["projected revenue"].empty?
+            p_temp[:budget_revenue] = project_hash["projected revenue"].gsub!(/,/,'').to_f
             p_temp[:budget_margin] = project_hash["projected margin (ext wtime)"].gsub!(/,/,'').to_f
             # p_temp[:created_at] = project_hash["Date created"].to_datetime
             p_temp[:created_at] = Time.zone.parse(project_hash["Date created"]).utc
-<<<<<<< HEAD
-            p_temp[:location] = project_hash["location"]
-=======
             p_temp[:location] = project_hash["location"] if project_hash["location"]
->>>>>>> c3_charts
             
             found_project = Project.order('created_at DESC').find_by(:project_name => p_temp[:project_name])
             found_client = Client.find_by(:client_name => p_temp[:client]) || Client.create!(:client_name => p_temp[:client])

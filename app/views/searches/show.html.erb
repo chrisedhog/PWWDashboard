@@ -7,37 +7,6 @@
 <%# line_chart Project.where(id: @found_search.projects.pluck(:id)).group_by_month(:created_at).sum(:budget_margin) %>
 <% current_data = Project.where(id: @found_search.projects.pluck(:id)).group_by_month(:created_at).sum(:budget_margin) %>
 
-<<<<<<< HEAD
-<div id="year-sold-pos" style="height: 250px;"></div>
-<script>
-new Morris.Line({
-  element: 'year-sold-pos',
-  data: [
-    <% 
-    def month_year(d)
-      d.strftime("%B %Y")
-    end
-    current_data.each do |d| 
-    
-      tmp_date = d[0].to_datetime
-      month_str = tmp_date.strftime("%b, %Y") %>
-    <%= 
-    "{ Year: \"#{tmp_date}\" , a:".html_safe + d[1].to_s + "},"
-    %>
-
-    <% end %>
-  ],
-  xkey: 'Year',
-  ykeys: ['a'],
-  labels: ['Live Data'],
-  lineColors: ['#0a85ee'],
-  lineWidth: [ '3'],
-  hideHover: 'auto',
-  continuousLine: 'true',
-  resize: 'true'
-  });
-</script>
-=======
 <% test_A = Client.all.map do |clients|  %>
   <% [clients.client_name, clients.projects.map { |p| [p.id , p.project_name ] } ] %>
 <% end %>
@@ -99,7 +68,6 @@ var chart = c3.generate({
     },
 });
  </script>
->>>>>>> c3_charts
 
 <h1>Results</h1>
 <% if @found_search.projects.empty? %>
