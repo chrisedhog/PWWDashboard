@@ -7,12 +7,14 @@ jQuery ->
     # The code in the brackets augments the names of the days to be 3 letters, rather than the stnd 2
     $('#search_from_date').datepicker({
     dayNamesMin: [ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" ]
+    changeYear: true
     dateFormat: "d M yy"
     defaultDate: "-1y"
     })
 
     $('#search_to_date').datepicker({
     dayNamesMin: [ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" ]
+    changeYear: true
     dateFormat: "d M yy"
     })
 

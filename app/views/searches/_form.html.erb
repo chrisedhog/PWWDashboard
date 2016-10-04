@@ -14,12 +14,12 @@
 <div class="col-lg-12" style="padding-top: 10px;">
     <span class="field" style="margin-right: 50px">
         <%= s.label :from_date %>
-        <%= s.text_field :from_date, value: (Date.today - 1.years).to_formatted_s(:rfc822), input_html: { autocomplete: 'off' } %>
+        <%= s.text_field :from_date, value: Date.today.beginning_of_year.to_formatted_s(:rfc822), input_html: { autocomplete: 'off' } %>
     </span>
 
     <span class="field" style="margin-right: 50px">
         <%= s.label :to_date %>
-        <%= s.text_field :to_date, value: Date.today.to_formatted_s(:rfc822), input_html: { autocomplete: 'off' } %>
+        <%= s.text_field :to_date, value: Date.today.end_of_year.to_formatted_s(:rfc822), input_html: { autocomplete: 'off' } %>
     </span>
     
     <span class="action">

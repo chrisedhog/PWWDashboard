@@ -1,7 +1,7 @@
 <%= render 'form' %>
 
 <div class="alert alert-warning">
-<br> <p>From: </p><%= @found_search.from_date.to_s %> <p> To: </p><%= @found_search.to_date.to_s %>
+<br> <p>Showing results from the <strong><%= @found_search.from_date.strftime('%d %B %Y') %></strong> to the <strong><%= @found_search.to_date.strftime('%d %B %Y') %></strong>.</p>
 </div>
 
 <%# line_chart Project.where(id: @found_search.projects.pluck(:id)).group_by_month(:created_at).sum(:budget_margin) %>
@@ -13,7 +13,7 @@
 <!-- The above is using map, to map a sub table of client (projects) and saving the desired files as an array. You get two arrays becayse the first loop creates an array [client hash + [the mapped projects array] -->
 
 <!-- below I'm trying to query my own hash, not sure how to do "is bettween this date and that date" -->
-<%= Search.get_budget_margin_histdata_by_search_date(Search.past_sample_data2, @found_search.from_date, @found_search.to_date) %>
+<%# Search.get_budget_margin_histdata_by_search_date(Search.past_sample_data2, @found_search.from_date, @found_search.to_date) %>
 
 <div id="sold-position" ></div>
 

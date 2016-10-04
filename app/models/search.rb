@@ -6,7 +6,7 @@ has_many :search_all_projects
 has_many :projects, through: :search_all_projects
 
 validates_date :to_date, :on_or_after => :from_date, :on_or_after_message => "From date cannot be after To date"
-validates_date :from_date, :to_date, :on_or_before => :today
+validates_date :from_date, :on_or_before => :today
 
     def search_projects(id)
 
@@ -74,10 +74,9 @@ validates_date :from_date, :to_date, :on_or_before => :today
 
     def self.get_budget_margin_histdata_by_search_date(dataset, date_from, date_to)
         dataset.find_all do |dat|
-            if (dat[:record_date] >= ? AND dat[:record_date] <= ?, date_from, date_to)
-                 dat[:record_date]
-            end
+            dat[:record_date].to_time.find("record_date >= ? AND record_date <= ?", from_date, to_date) 
         end
+        return temp_records
     end
 
     def self.forecast_sample_data
