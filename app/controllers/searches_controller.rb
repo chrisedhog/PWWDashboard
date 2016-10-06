@@ -69,7 +69,6 @@ class SearchesController < ApplicationController
         end
     end
 #   END NEW SEARCH FORM
-
     private
 
     def search_params

@@ -36,7 +36,7 @@ Rails.application.routes.draw do
   resources :users, only: :destroy do
     patch 'assign_clients', to: 'users#assign_clients', as: 'assign_clients'
   end
-
+  
   get 'home/index'
 
   # Example of regular route:

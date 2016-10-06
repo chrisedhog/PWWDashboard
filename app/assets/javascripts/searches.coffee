@@ -11,13 +11,11 @@ jQuery ->
     dateFormat: "d M yy"
     defaultDate: "-1y"
     })
-
     $('#search_to_date').datepicker({
     dayNamesMin: [ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" ]
     changeYear: true
     dateFormat: "d M yy"
     })
-
     projects = $('#search_project').html()
     $('#search_client').change ->
         client = $('#search_client :selected').map(() ->
@@ -32,6 +30,7 @@ jQuery ->
             $('#search_project').html(options_array.join(''))
         else
             $('#search_project').empty()
-        $('#search_project').show()
+        # $('#search_project').show()
+        $('#search_project').trigger('chosen:updated');
 
   

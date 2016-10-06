@@ -1,24 +1,4 @@
-<script>
-  $(document).ready(function(){
-    var checkboxes = $("input[type='checkbox']");
-    if(checkboxes.prop("checked")){
-        document.getElementById("check_all").innerHTML = "Deselect All";
-    }
-    else {
-        document.getElementById("check_all").innerHTML = "Select All";
-    }
-   $('#check_all').on("click", function() {
-    if(checkboxes.prop("checked")){
-        checkboxes.prop("checked",false);
-        document.getElementById("check_all").innerHTML = "Select All";
-    }
-    else {
-        checkboxes.prop("checked",true);
-        document.getElementById("check_all").innerHTML = "Deselect All";
-    }
-  });
-});
-</script>
+
 <div>
 <table width="100%" padding="0"><tr>
   <td width="10%"><%= link_to '<i class="fa fa-angle-double-left"></i> Back'.html_safe , profiles_path, class: 'btn btn-default' %></td>
@@ -71,8 +51,10 @@
 
 <% if (current_user.has_role? :admin) || (current_user.has_role? :super_admin) %>
   <h4>Manage Clients:</h4>
-  <div style="float: left;"><%= form_for @profile.user, url: user_assign_clients_path(@profile.user) do |f| %>
-    <ul style="list-style: none;"><% @clients.each do |client| %>
+  <div style="float: left;">
+  <%= form_for @profile.user, url: user_assign_clients_path(@profile.user) do |f| %>
+    <ul style="list-style: none;">
+    <% @clients.each do |client| %>
       <li class="col-lg-5 col-md-6 col-sm-12">
           <%= hidden_field_tag "user[client_ids][]" %>
           <%= check_box_tag "user[client_ids][]", client.id, @profile.user.clients.include?(client) %>
@@ -88,3 +70,25 @@
   
   </div>
 </div>
+
+<script>
+//   $(document).ready(function(){
+//     var checkboxes = $("input[type='checkbox']");
+//     if(checkboxes.prop("checked")){
+//         document.getElementById("check_all").innerHTML = "Deselect All";
+//     }
+//     else {
+//         document.getElementById("check_all").innerHTML = "Select All";
+//     }
+//    $('#check_all').on("click", function() {
+//     if(checkboxes.prop("checked")){
+//         checkboxes.prop("checked",false);
+//         document.getElementById("check_all").innerHTML = "Select All";
+//     }
+//     else {
+//         checkboxes.prop("checked",true);
+//         document.getElementById("check_all").innerHTML = "Deselect All";
+//     }
+//   });
+// });
+</script>
