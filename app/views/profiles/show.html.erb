@@ -72,23 +72,23 @@
 </div>
 
 <script>
-//   $(document).ready(function(){
-//     var checkboxes = $("input[type='checkbox']");
-//     if(checkboxes.prop("checked")){
-//         document.getElementById("check_all").innerHTML = "Deselect All";
-//     }
-//     else {
-//         document.getElementById("check_all").innerHTML = "Select All";
-//     }
-//    $('#check_all').on("click", function() {
-//     if(checkboxes.prop("checked")){
-//         checkboxes.prop("checked",false);
-//         document.getElementById("check_all").innerHTML = "Select All";
-//     }
-//     else {
-//         checkboxes.prop("checked",true);
-//         document.getElementById("check_all").innerHTML = "Deselect All";
-//     }
-//   });
-// });
+  $(document).on('page:change', function () {
+    var checkboxes = $("input[type='checkbox']");
+    if(checkboxes.prop("checked")){
+        document.getElementById("check_all").innerHTML = "Deselect All";
+    }
+    else {
+        document.getElementById("check_all").innerHTML = "Select All";
+    }
+   $('#check_all').on("click", function() {
+    if(checkboxes.prop("checked")){
+        checkboxes.prop("checked",false);
+        document.getElementById("check_all").innerHTML = "Select All";
+    }
+    else {
+        checkboxes.prop("checked",true);
+        document.getElementById("check_all").innerHTML = "Deselect All";
+    }
+  });
+});
 </script>

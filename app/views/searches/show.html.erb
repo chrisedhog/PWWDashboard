@@ -4,8 +4,10 @@
 <br> <p>Showing results from the <strong><%= @found_search.from_date.strftime('%d %B %Y') %></strong> to the <strong><%= @found_search.to_date.strftime('%d %B %Y') %></strong>.</p>
 </div>
 
-<%# line_chart Project.where(id: @found_search.projects.pluck(:id)).group_by_month(:created_at).sum(:budget_margin) %>
-<% current_data = Project.where(id: @found_search.projects.pluck(:id)).group_by_month(:created_at).sum(:budget_margin) %>
+<!-- The below are the 3 sets of data, current_data is from the database, the other two are hard coded arrays found in the model -->
+<% last_years_data = Search.get_dataset_record_by_search_date(Search.past_sample_data2, @found_search.from_date - 1.year, @found_search.to_date - 1.year) %>
+<% forecast_data = Search.get_dataset_record_by_search_date(Search.forecast_sample_data2, @found_search.from_date, @found_search.to_date) %>
+
 
 <% test_A = Client.all.map do |clients|  %>
   <% [clients.client_name, clients.projects.map { |p| [p.id , p.project_name ] } ] %>
@@ -13,9 +15,53 @@
 <!-- The above is using map, to map a sub table of client (projects) and saving the desired files as an array. You get two arrays becayse the first loop creates an array [client hash + [the mapped projects array] -->
 
 <!-- below I'm trying to query my own hash, not sure how to do "is bettween this date and that date" -->
-<%# Search.get_budget_margin_histdata_by_search_date(Search.past_sample_data2, @found_search.from_date, @found_search.to_date) %>
 
-<div id="sold-position" ></div>
+<!-- HOW TO GET DATA FROM ARRAYS
+--------------------------------
+   UNCOMMENT TO TEST DATA
+--------------------------------
+
+<div class="col-lg-4">
+<ul>
+<% last_years_data.each do |fa| %>
+  <li><%= fa[:record_date].to_date.strftime('%b %Y') %> – <%= fa[:budget_margin] %></li>
+  <hr>
+<% end %>
+</ul>
+</div>
+
+<div class="col-lg-4">
+<ul>
+<% @found_search.budget_margin_by_month.each do |lak| %>
+  <li><%= lak[0].strftime('%b %Y') %> – <%= lak[1] %></li>
+  <hr>
+<% end %>
+</ul>
+</div>
+
+<div class="col-lg-4">
+<ul>
+<% forecast_data.each do |forecastdata| %>
+  <li><%= forecastdata[:record_date].to_date.strftime('%b %Y') %> – <%= forecastdata[:budget_margin] %></li>
+  <hr>
+<% end %>
+</ul>
+</div>
+-->
+<%= hello = @found_search.clients.pluck(:client_name) %>
+<% current_data = Project.where(client: @found_search.clients.pluck(:client_name)) %>
+<%= current_data.count %>
+
+<br><br>
+Have you specified projects?
+<strong><% if @found_search.clients.count.nil? %>
+          <%= 'No' %>
+      <% else %>
+          <%= 'Yes' %>
+      <% end %>
+</strong>
+
+<div id="sold-position" style="display: block;"></div>
 
 <script>
 var chart = c3.generate({
@@ -24,25 +70,29 @@ var chart = c3.generate({
       x: 'x',
       columns: [
         ['x', 
-        <% @found_search.budget_margin_by_month.each do |d| %>
-          '<%= d[0].strftime('%F') %>',  
+        <% last_years_data.each do |d| %>
+          '<%= d[:record_date].to_date.strftime('%F') %>',  
         <% end %>
         ],
+        
         ['2016 Actual', 
         <% @found_search.budget_margin_by_month.each do |data| %>
           <%= data[1] %>, 
          <% end %>
         // taking the past data (usually a full year) and subtracting it from the current data I'll be graphing
         // I then use that number to determine how many 'null's I must return to avoid the tool tip being stuck at the right of the graph
-         <%= 'null, ' * (Search.past_sample_data.count - current_data.count) %>],
+         <%= 'null, ' * (last_years_data.count - @found_search.budget_margin_by_month.count) %>
+         ],
+         
          ['2016 Projected', 
-        <% Search.forecast_sample_data.each do |forecast| %>
-          <%= forecast[1] %>, 
+        <% forecast_data.each do |forecast| %>
+          <%= forecast[:budget_margin] %>, 
          <% end %>
          ],
+        
         ['2015 Actual', 
-        <% Search.past_sample_data.each do |past| %>
-          <%= past[1] %>, 
+        <% last_years_data.each do |past| %>
+          <%= past[:budget_margin] %>, 
          <% end %>
          ]
       ],
