@@ -48,18 +48,11 @@
 </ul>
 </div>
 -->
-<%= hello = @found_search.clients.pluck(:client_name) %>
-<% current_data = Project.where(client: @found_search.clients.pluck(:client_name)) %>
-<%= current_data.count %>
 
-<br><br>
-Have you specified projects?
-<strong><% if @found_search.clients.count.nil? %>
-          <%= 'No' %>
-      <% else %>
-          <%= 'Yes' %>
-      <% end %>
-</strong>
+<!-- The below is for printing out the client's you've searched for --> 
+<%# current_data = Project.where(client: @found_search.clients.pluck(:client_name)) %>
+<%# current_data.count %>
+
 
 <div id="sold-position" style="display: block;"></div>
 
@@ -119,44 +112,61 @@ var chart = c3.generate({
 });
  </script>
 
-<h1>Results</h1>
-<% if @found_search.projects.empty? %>
-    <p>No Records Found</p>
-<% else %>
-    <table class="table">
-  <thead>
-    <tr>
-      <th>Client</th>
-      <th>Project status</th>
-      <th>Project name</th>
-      <th>Completion date</th>
-      <th>Completion month</th>
-      <th>Budget revenue</th>
-      <th>Budget margin</th>
-      <th>Budget margin %</th>
-      <th>Date Updated</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody> 
-    <% @found_search.projects.each do |project| %>
-      <tr>
-        <td><%= project.client %></td>
-        <td><%= project.project_status %></td>
-        <td><%= project.project_name %></td>
-        <td><%= project.completion_date %></td>
-        <td><%= project.completion_month %></td>
-        <td><%= project.budget_revenue %></td>
-        <td><%= project.budget_margin %></td>
-        <td><%= project.budget_margin_pct %></td>
-        <td><%= project.updated_at %></td>
-        <td><%= link_to 'Show', project %></td>
-        <td><%= link_to 'Edit', edit_project_path(project) %></td>
-        <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<p>
+  <button class="btn btn-secondary collapsed" id="showdata" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="updatelabel()">
+    View Detailed Breakdown
+  </button>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-block">
+    <h1>Projects</h1>
+    <% if @found_search.projects.empty? %>
+        <p>No Records Found</p>
+    <% else %>
+        <table class="table">
+      <thead>
+        <tr>
+          <th>Client</th>
+          <th>Project status</th>
+          <th>Project name</th>
+          <th>Completion date</th>
+          <th>Completion month</th>
+          <th>Budget revenue</th>
+          <th>Budget margin</th>
+          <th>Budget margin %</th>
+        </tr>
+      </thead>
+
+      <tbody> 
+        <% Project.where(client: @found_search.clients.pluck(:client_name)).each do |project| %>
+          <tr>
+            <td><%= project.client %></td>
+            <td><%= project.project_status %></td>
+            <td><%= project.project_name %></td>
+            <td><%= project.completion_date %></td>
+            <td><%= project.completion_month %></td>
+            <td><%= project.budget_revenue %></td>
+            <td><%= project.budget_margin %></td>
+            <td><%= project.budget_margin_pct %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
     <% end %>
-  </tbody>
-</table>
+  </div>
+</div>
 
-<% end %>
+<script>
+function updatelabel() {
+  var elem = document.getElementById("showdata");
+  if (elem.innerHTML == "Close") {
+    elem.innerHTML = "View Detailed Breakdown";
+    console.log("closing");
+  }  else {
+    console.log("changing back");
+    elem.innerHTML = "Close";
+  }
+}
+</script>

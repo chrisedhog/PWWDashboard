@@ -32,5 +32,3 @@ jQuery ->
         else
             $('#search_project').empty()
         $('#search_project').trigger('chosen:updated');
-
-  
