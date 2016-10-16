@@ -130,8 +130,7 @@ var chart = c3.generate({
           <th>Client</th>
           <th>Project status</th>
           <th>Project name</th>
-          <th>Completion date</th>
-          <th>Completion month</th>
+          <th>Record Date</th>
           <th>Budget revenue</th>
           <th>Budget margin</th>
           <th>Budget margin %</th>
@@ -144,8 +143,7 @@ var chart = c3.generate({
             <td><%= project.client %></td>
             <td><%= project.project_status %></td>
             <td><%= project.project_name %></td>
-            <td><%= project.completion_date %></td>
-            <td><%= project.completion_month %></td>
+            <td><%= project.created_at.strftime('%B') %></td>
             <td><%= project.budget_revenue %></td>
             <td><%= project.budget_margin %></td>
             <td><%= project.budget_margin_pct %></td>
@@ -171,3 +169,11 @@ function updatelabel() {
   }
 }
 </script>
+
+<% content_for :knownerrors,
+'
+<ul>
+  <li>On the iPhone there seems to be an issue where the Client\'s drop down won\'t allow you to select AWS by itself + other weird behaviour on mobile</li>
+  <li>Can\'t seem to populate the error dialogue when date range is invalid.</li>
+</ul>
+'.html_safe %>
