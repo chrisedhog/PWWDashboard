@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
             @myclients << myclient.client_name
     end
     
-    @myprojects = Project.where(client: @myclients,project_status: "Contracted").order(client: :asc)
+    @myprojects = Project.where(project_status: "Contracted").order(client_id: :asc)
 
 
 	end
@@ -22,7 +22,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    
+    @client = Client.find_by(id: @project.client_id)
   end
 
   # GET /projects/new
@@ -69,7 +69,7 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
-    c = Client.find_by_client_name @project.client
+    c = Client.find_by_id @project.client_id
     c.projects.delete @project if c
 
     @project.destroy!
@@ -81,7 +81,7 @@ class ProjectsController < ApplicationController
 
   def delete_all
         Project.all.each do |project|
-          c = Client.find_by_client_name project.client
+          c = Client.find_by_id project.client_id
           c.projects.delete project if c
             project.delete
         end

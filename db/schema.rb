@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(version: 20161016051403) do
   create_table "clients", force: :cascade do |t|
     t.string   "client_name"
     t.string   "country"
-    t.string   "region"
     t.string   "company"
     t.string   "location"
     t.decimal  "prior_year"
@@ -31,10 +30,7 @@ ActiveRecord::Schema.define(version: 20161016051403) do
     t.boolean  "new_client"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
-    t.integer  "project_id"
   end
-
-  add_index "clients", ["project_id"], name: "index_clients_on_project_id", using: :btree
 
   create_table "helps", force: :cascade do |t|
     t.string   "title"
@@ -72,16 +68,18 @@ ActiveRecord::Schema.define(version: 20161016051403) do
   add_index "project_clients", ["project_id"], name: "index_project_clients_on_project_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
-    t.string   "client"
     t.string   "project_status"
     t.string   "project_name"
     t.date     "completion_date"
     t.date     "completion_month"
     t.decimal  "budget_revenue"
     t.decimal  "budget_margin"
+    t.integer  "client_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end
+
+  add_index "projects", ["client_id"], name: "index_projects_on_client_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
@@ -179,10 +177,10 @@ ActiveRecord::Schema.define(version: 20161016051403) do
 
   add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
-  add_foreign_key "clients", "projects"
   add_foreign_key "profiles", "users"
   add_foreign_key "project_clients", "clients"
   add_foreign_key "project_clients", "projects"
+  add_foreign_key "projects", "clients"
   add_foreign_key "search_all_projects", "projects"
   add_foreign_key "search_all_projects", "searches"
   add_foreign_key "search_clients", "clients"

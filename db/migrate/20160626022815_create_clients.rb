@@ -3,7 +3,6 @@ class CreateClients < ActiveRecord::Migration
     create_table :clients do |t|
       t.string :client_name
       t.string :country
-      t.string :region
       t.string :company
       t.string  :location
       t.decimal :prior_year

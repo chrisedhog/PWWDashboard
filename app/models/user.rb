@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
  has_one :profile, dependent: :destroy
  
  has_many :user_clients
- has_many :clients, through: :user_clients  
+ has_many :clients, through: :user_clients, dependent: :destroy
 
 
     def client_projects

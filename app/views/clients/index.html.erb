@@ -7,7 +7,7 @@
     <tr>
       <th>Client name</th>
       <th>Country</th>
-      <th>Region</th>
+      <th>Location</th>
       <th>Company</th>
       <th colspan="3"></th>
     </tr>
@@ -18,7 +18,7 @@
       <tr>
         <td><%= client.client_name %></td>
         <td><%= client.country %></td>
-        <td><%= client.region %></td>
+        <td><%= client.location %></td>
         <td><%= client.company %></td>
         <td><%= link_to 'Show', client %></td>
         <td><%= link_to 'Edit', edit_client_path(client) %></td>
@@ -31,3 +31,10 @@
 <br>
 
 <%= link_to 'New Client', new_client_path %>
+
+<% content_for :knownerrors,
+'
+<ul>
+  <li>Can\'t delete Clients because for some reason there is an issue with the user_clients table. This looks like it happens when ever a user is assigned to a client.</li>
+</ul>
+'.html_safe %>

@@ -32,7 +32,7 @@
   <tbody> 
     <% @myprojects.each do |project| %>
       <tr>
-        <td><%= project.client %></td>
+        <td><%= project.client.client_name %></td>
         <td><%= project.project_status %></td>
         <td><%= project.project_name %></td>
         <td><%= project.completion_date %></td>
@@ -66,3 +66,10 @@
 <br><br>
 <%= link_to 'New Project', new_project_path, class: 'btn btn-default' %>
 
+<% content_for :knownerrors,
+'
+<ul>
+  <li>Did some pretty majour restructure of the project/client relationship to a Client – has_many projects, Project – belongs_to Client. This may cause some errors when referencing Project.client</li>
+  <li>Because of the above mentioned, there may be an issue with the import</li>
+</ul>
+'.html_safe %>
