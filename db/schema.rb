@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160816040745) do
+ActiveRecord::Schema.define(version: 20161016051403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,8 +21,16 @@ ActiveRecord::Schema.define(version: 20160816040745) do
     t.string   "country"
     t.string   "region"
     t.string   "company"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "location"
+    t.decimal  "prior_year"
+    t.decimal  "business_plan"
+    t.decimal  "q1_forecast"
+    t.decimal  "q2_forecast"
+    t.decimal  "q3_forecast"
+    t.decimal  "q4_forecast"
+    t.boolean  "new_client"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.integer  "project_id"
   end
 
@@ -73,7 +81,6 @@ ActiveRecord::Schema.define(version: 20160816040745) do
     t.decimal  "budget_margin"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
-    t.string   "location"
   end
 
   create_table "roles", force: :cascade do |t|
