@@ -62,30 +62,14 @@ Rails.application.configure do
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default :charset => "utf-8"
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true
 
   # Send deprecation notices to registered listeners.
-      # config.active_support.deprecation = :notify
-      # config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-      # config.action_mailer.delivery_method = :smtp
-      # config.action_mailer.perform_deliveries = true
-      # config.action_mailer.raise_delivery_errors = true
-      # config.action_mailer.default :charset => "utf-8"
-      
-      # config.action_mailer.smtp_settings = {
-      # :api_key => 'key-5d321b99f722e71f759993ee41512b99',
-      # :user_name => 'postmaster@sandbox3ed8de9510c845c68bf0d867a8f25394.mailgun.org',
-      # :password => '821e5cba66f01f407c6060b68e992204',
-      # :domain => 'sandbox3ed8de9510c845c68bf0d867a8f25394.mailgun.org',
-      # :address => 'smtp.mailgun.org',
-      # :port => 587,
-      # :authentication => :plain
-      # # :enable_starttls_auto => true
-      # }
 
   config.action_mailer.default_url_options = { :host => 'http://mighty-coast-71989.herokuapp.com/' }
   config.action_mailer.delivery_method = :smtp
@@ -94,11 +78,11 @@ Rails.application.configure do
   ActionMailer::Base.smtp_settings = { 
     :address => 'smtp.mailgun.org',
     :port => 587,
-    :user_name => 'postmaster@sandbox3ed8de9510c845c68bf0d867a8f25394.mailgun.org',
-    :password => '821e5cba66f01f407c6060b68e992204',
+    :user_name => ENV['MAILGUN_EMAIL'],
+    :password => ENV['MAILGUN_PASS'],
     :domain => 'sandbox3ed8de9510c845c68bf0d867a8f25394.mailgun.org',
     :authentication => :plain
-  }
+  }  
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new

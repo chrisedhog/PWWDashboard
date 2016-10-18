@@ -6,7 +6,7 @@ class SearchesController < ApplicationController
         @project = []
 
         current_user.clients.order(client_name: :ASC).all.each do |myclient|
-            @client << Client.find(myclient)
+            @client << Client.find(myclient.id)
         end
 
         @client.each do |client|
