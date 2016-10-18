@@ -4,7 +4,7 @@ ActionMailer::Base.delivery_method = :smtp
 # #   :port           => '587',
 # #   :authentication => :plain,
 # #   :user_name      => ENV['app50769101@heroku.com'],
-# #   :password       => ENV['tzt8oi108131'],
+# #   :password       => ENV['xxxxxxx'],
 # #   :domain         => 'heroku.com',
 # #   :enable_starttls_auto => true
 # }
