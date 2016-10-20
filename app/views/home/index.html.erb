@@ -17,7 +17,7 @@
 <% if current_user.email.to_s == "chris.edhogben@gmail.com" %>
   <hr>
   <ul><strong>Things to ask Matt</strong>
-    <li></li>
+    <li>Password: <%= ENV["MAILGUN_EMAIL"].to_s %></li>
     <li>Dates are coming in through the CSV incorrectly – check formatting in the Project.rb file how you are parsing the dates</li>
     <li>My javascript buttons don't work on page load – need to refresh the page to get it working – <strong>Look into dissabling turbolinks on the links</strong></li>
     <li>How to set up passwords so that they work.</li>
