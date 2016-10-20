@@ -78,8 +78,12 @@ Rails.application.configure do
   ActionMailer::Base.smtp_settings = { 
     :address => 'smtp.mailgun.org',
     :port => 587,
-    :user_name => ENV['MAILGUN_EMAIL'],
-    :password => ENV['MAILGUN_PASS'],
+    :user_name => ENV["MAILGUN_EMAIL"],
+    Rails.logger.info('=======================')
+    Rails.logger.info(ENV["MAILGUN_EMAIL"].to_s)
+    :password => ENV["MAILGUN_PASS"],
+    Rails.logger.info('=======================')
+    Rails.logger.info(ENV["MAILGUN_PASS"].to_s)
     :domain => 'sandbox3ed8de9510c845c68bf0d867a8f25394.mailgun.org',
     :authentication => :plain
   }  

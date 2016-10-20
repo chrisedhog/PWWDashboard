@@ -5,15 +5,27 @@
       your role is
         <% if current_user.has_role? :admin %>
             <span><strong>admin</strong></span>
-            <% else current_user.has_role? :super_admin %>
+            <% elsif current_user.has_role? :super_admin %>
               <span><strong>super admin</strong></span>
+            <% else %>
+              <span><strong>user</strong></span>
         <% end %>
       </span>
   <% else %>
       <span>How about creating <%= link_to 'a profile?', new_profile_path %></span>
 <% end %>
 <% if current_user.email.to_s == "chris.edhogben@gmail.com" %>
-        <hr>
+  <hr>
+  <ul><strong>Things to ask Matt</strong>
+    <li></li>
+    <li>Dates are coming in through the CSV incorrectly – check formatting in the Project.rb file how you are parsing the dates</li>
+    <li>My javascript buttons don't work on page load – need to refresh the page to get it working – <strong>Look into dissabling turbolinks on the links</strong></li>
+    <li>How to set up passwords so that they work.</li>
+    <li>Data doesn't seem to be graphing anymore since reconfiguring the project/client relationship</li>
+    <li>Render the search form with last search – put the vars in the URL</li>
+    <li>On iOS and Android, the search function works differently</li>
+  </ul>
+  <hr>
   <strong>I'm up to...</strong>
   <ul>
     <li><span class="btn btn-danger btn-sm">CURRENT</span> Trying to render the 'search' form on the the search results page. This is working, however perhaps if I render the form and use the way the 'edit' page works, it will remember the preferences.</li>
@@ -30,13 +42,7 @@
     <li>Created an admin panel restricted to admins and suepr admins only + help page for how to use the site as admin or user + contact page<span class="btn btn-success btn-sm">Done!</span></li>
     <li>Create a 'delete' def in user to log out a user <span class="btn btn-success btn-sm">Done!</span></li>
     <li>Redirecting a user to the 'create a profile' page automatically after log in if they haven't set up a profile using "if current_user.profile" <span class="btn btn-success btn-sml">Done!</span></li>
-  </ul><!-- 
-  <hr>
-  <ul>Things to ask Matt
-    <li>Have I done the correct thing regarding assigning users to a client by having a URL?</li>
-    <li>Have I filtered the database correctly for projects?</li>
-  </ul> -->
-  <hr>
+  </ul>
   <% User.all.each do |user| %>
     <%= user.email %> | <%# link_to 'Delete', destroy_me_path, method: :delete, data: { confirm: "You sure?" } %>
     <%= link_to 'Delete User', user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %>

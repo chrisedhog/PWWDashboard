@@ -16,7 +16,6 @@ class ProjectsController < ApplicationController
     
     @myprojects = Project.where(project_status: "Contracted").order(client_id: :asc)
 
-
 	end
 
   # GET /projects/1

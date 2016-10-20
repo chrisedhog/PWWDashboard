@@ -27,15 +27,37 @@ validates_date :from_date, :on_or_before => :today
         # my_projects = Project.where(id: projects.pluck(:id))
 
         # note currently it's never nil because for some reason the client array always begins with an empty entry [""]
-        if (clients.count.nil? )
-            my_project = Project.where(client: current_user.clients(:client_name))
+        if (clients.count.nil?)
+            my_project = Project.where(client_id: current_user.clients(:id))
+            puts('============================1')
+            puts('It says you have no clients')
+            puts('============================2')
         else
-            my_projects = Project.where(client: clients.pluck(:client_name))
+            my_projects = Project.where(client_id: clients.pluck(:id))
+            puts('============================3')
+            puts('It\'s finding clients')
+            my_projects.all.each do |p|
+                puts(p.project_name)
+                puts(p.client.location)
+            end
+            puts(Client.find(clients[0].id).client_name)
+            puts('============================4')
         end
-        my_projects = my_projects.where("project_status = ?", "Contracted") 
+        my_projects = my_projects.where("project_status = ?", "Contracted")
+        puts('============================5') 
+        my_projects.all.each do |p|
+                puts(p.project_name)
+                puts(p.client.location)
+        end
+        puts('============================6') 
         my_projects = my_projects.where("created_at >= ? AND created_at <= ?", from_date, to_date) 
-        my_projects_sorted = my_projects.group_by_month(:created_at).sum(:budget_margin) 
-        
+        my_projects_sorted = my_projects.group_by_month(:created_at).sum(:budget_margin)
+        puts('============================7')
+        puts('============================8') 
+        puts(my_projects)
+        puts('============================9')
+        puts(my_projects_sorted)
+        puts('============================0')
         return my_projects_sorted
     end
 
