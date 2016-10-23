@@ -1,4 +1,7 @@
-
+<% content_for(:body_attributes) do %>
+    data-no-turbolink="true"
+  <% end %>
+<!-- The above dissables turbolinks for this page -->
 <div>
 <table width="100%" padding="0"><tr>
   <td width="10%"><%= link_to '<i class="fa fa-angle-double-left"></i> Back'.html_safe , profiles_path, class: 'btn btn-default' %></td>

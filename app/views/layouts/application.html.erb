@@ -8,7 +8,10 @@
   <%= csrf_meta_tags %>
 
 </head>
-<body>
+<body 
+  <% if content_for?(:body_attributes) %>
+    <%= yield(:body_attributes) %> 
+  <% end %>>
 <!-- Notification -->
 <% unless flash.empty? %>
 	  <script type="text/javascript">
