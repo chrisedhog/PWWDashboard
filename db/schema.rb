@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161016051403) do
+ActiveRecord::Schema.define(version: 20161023110348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,6 @@ ActiveRecord::Schema.define(version: 20161016051403) do
     t.string   "client_name"
     t.string   "country"
     t.string   "company"
-    t.string   "location"
     t.decimal  "prior_year"
     t.decimal  "business_plan"
     t.decimal  "q1_forecast"
@@ -30,6 +29,7 @@ ActiveRecord::Schema.define(version: 20161016051403) do
     t.boolean  "new_client"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.string   "location"
   end
 
   create_table "helps", force: :cascade do |t|
@@ -66,6 +66,13 @@ ActiveRecord::Schema.define(version: 20161016051403) do
 
   add_index "project_clients", ["client_id"], name: "index_project_clients_on_client_id", using: :btree
   add_index "project_clients", ["project_id"], name: "index_project_clients_on_project_id", using: :btree
+
+  create_table "project_locations", force: :cascade do |t|
+    t.string   "location"
+    t.string   "region"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "projects", force: :cascade do |t|
     t.string   "project_status"

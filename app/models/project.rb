@@ -5,7 +5,6 @@ belongs_to :client
 has_many :search_all_projects
 has_many :searches, through: :search_all_projects, dependent: :destroy
 
-
     def self.import(file)
         CSV.foreach(file.path, headers: true) do |row|
             
@@ -27,10 +26,11 @@ has_many :searches, through: :search_all_projects, dependent: :destroy
             p_temp[:budget_revenue] = project_hash["projected revenue"].gsub!(/,/,'').to_f
             p_temp[:budget_margin] = project_hash["projected margin (ext wtime)"].gsub!(/,/,'').to_f
             # p_temp[:created_at] = project_hash["Date created"].to_datetime
-            p_temp[:created_at] = Time.zone.parse(project_hash["Date created"]).utc
+            p_temp[:created_at] = DateTime.strptime(project_hash["Date created"], "%d/%m/%y").utc
             client_temp[:location] = project_hash["location"] if project_hash["location"]
             
             found_project = Project.order('created_at DESC').find_by(:project_name => p_temp[:project_name])
+            found_loc = ProjectLocation.find_by(:location => client_temp[:location]) || ProjectLocation.create!(:location => client_temp[:location])
             found_client = Client.find_by(:client_name => client_temp[:client], :location => client_temp[:location]) || Client.create!(:client_name => client_temp[:client], :location => client_temp[:location])
             # found_client = Client.find_by(:client_name => p_temp[:client]) || Client.create!(:client_name => p_temp[:client])
 

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Project Locations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Location</th>
+      <th>Region</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @project_locations.each do |project_location| %>
+      <tr>
+        <td><%= project_location.location %></td>
+        <td><%= project_location.region %></td>
+        <td><%= link_to 'Show', project_location %></td>
+        <td><%= link_to 'Edit', edit_project_location_path(project_location) %></td>
+        <td><%= link_to 'Destroy', project_location, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Project location', new_project_location_path %>

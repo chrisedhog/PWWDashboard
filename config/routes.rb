@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :project_locations
   resources :clients
   resources :searches
   resources :projects do 

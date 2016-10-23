@@ -35,7 +35,7 @@
         <td><%= project.client.client_name %></td>
         <td><%= project.project_status %></td>
         <td><%= project.project_name %></td>
-        <td><%= project.completion_date %></td>
+        <td><%= project.created_at %></td>
         <td><%= project.budget_revenue %></td>
         <td><%= project.budget_margin %></td>
         <td><%= project.budget_margin_pct %>%</td>
@@ -47,7 +47,6 @@
     <% end %>
   </tbody>
 </table>
-
 <br>
 <h3>Upload Database</h3>
 <%= form_tag('/projects/import/', multipart: true) do %>
@@ -69,6 +68,7 @@
 <% content_for :knownerrors,
 '
 <ul>
+  <li>CSV import doesn\'t check past dates, so if you upload a CSV with old data from a project, it won\'t overwrite it for that month so you will have a duplicate!</li>
   <li>Did some pretty majour restructure of the project/client relationship to a Client – has_many projects, Project – belongs_to Client. This may cause some errors when referencing Project.client</li>
   <li>Because of the above mentioned, there may be an issue with the import</li>
 </ul>
