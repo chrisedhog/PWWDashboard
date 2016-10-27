@@ -4,6 +4,7 @@ class SearchesController < ApplicationController
         @search = Search.new
         @client = []
         @project = []
+        @location = ProjectLocation.all
 
         current_user.clients.order(client_name: :ASC).all.each do |myclient|
             @client << Client.find(myclient.id)
@@ -57,7 +58,8 @@ class SearchesController < ApplicationController
         @search = Search.new
         @project = []
         @client = []
-
+        @location = ProjectLocation.all
+        
         current_user.clients.order(client_name: :ASC).all.each do |myclient|
             @client << Client.find(myclient)
         end

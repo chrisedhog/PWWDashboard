@@ -27,7 +27,7 @@ validates_date :from_date, :on_or_before => :today
         # my_projects = Project.where(id: projects.pluck(:id))
 
         # note currently it's never nil because for some reason the client array always begins with an empty entry [""]
-        if (clients.count.nil?)
+        if (clients.count < 1)
             my_project = Project.where(client_id: current_user.clients(:id))
             puts('============================1')
             puts('It says you have no clients')
@@ -35,12 +35,7 @@ validates_date :from_date, :on_or_before => :today
         else
             my_projects = Project.where(client_id: clients.pluck(:id))
             puts('============================3')
-            puts('It\'s finding clients')
-            my_projects.all.each do |p|
-                puts(p.project_name)
-                puts(p.client.location)
-            end
-            puts(Client.find(clients[0].id).client_name)
+            puts(clients)
             puts('============================4')
         end
         my_projects = my_projects.where("project_status = ?", "Contracted")
