@@ -3,40 +3,22 @@ class SearchesController < ApplicationController
     def new
         @search = Search.new
         @client = []
-        @project = []
+        @project = Project.all
         @location = ProjectLocation.all
 
         current_user.clients.order(client_name: :ASC).all.each do |myclient|
             @client << Client.find(myclient.id)
         end
 
-        @client.each do |client|
-            client.projects.select(:project_name).distinct do |myprojects|
-                @project << myprojects
-            end
-        end
-
     end
 
     def create
         clients = search_params[:client]
-        projects = search_params[:project]
-
-        clients = current_user.clients.all.pluck(:id) if clients.size == 1
-        projects = current_user.client_projects if projects.size == 1
+        locations = search_params[:location]
 
         search_params.delete("client")
-        search_params.delete("project")
+        search_params.delete("location")
         @search = Search.create(search_params)
-
-        clients.each do |c|
-            temp_client = Client.find_by_id(c)
-            @search.clients << temp_client unless temp_client.nil?
-        end
-        projects.each do |p|
-            temp_proj = Project.find_by_id(p)
-            @search.projects << temp_proj unless temp_proj.nil?
-        end
 
         respond_to do |format|
             if @search.save
@@ -53,13 +35,19 @@ class SearchesController < ApplicationController
     def show
         @found_search = Search.find(params[:id])
         @year_comparison = Search.find(params[:id]).projects.group_by_month(:created_at)
+        @user_clients = []
+
+        # keeping track of all user clients like this until I figure out how to bring in current user in model
+        current_user.clients.all.each do |clientid|
+            @user_clients << clientid.id
+        end
 
 #       NEW SEARCH FORM
         @search = Search.new
         @project = []
         @client = []
         @location = ProjectLocation.all
-        
+
         current_user.clients.order(client_name: :ASC).all.each do |myclient|
             @client << Client.find(myclient)
         end
@@ -74,7 +62,7 @@ class SearchesController < ApplicationController
     private
 
     def search_params
-        params.require(:search).permit(:from_date, :to_date, project: [], client: [])
+        params.require(:search).permit(:from_date, :to_date, location: [], client: [])
     end
 
 end

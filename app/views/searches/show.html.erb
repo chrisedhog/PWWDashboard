@@ -48,8 +48,22 @@
 <!-- The below is for printing out the client's you've searched for --> 
 <%# current_data = Project.where(client: @found_search.clients.pluck(:client_name)) %>
 <%# current_data.count %>
+<%= @found_search.location %> | <%= @found_search.client %><br><br>
+Locations: <%= @searched_locations %> | Clients: <%= @searched_clients %>
+<br><br>
+<strong>My test:</strong> <%= @found_search.test_thingy %>
+<br>
+<hr>
+<strong>IMPORTANT</strong> I'm in the middle of trying to fix the search, below you can see I can use an array of clients to print them out, however I can't seem to get this working in the model yet.
+<hr>
+<%= eval(@found_search.client) %>
+<% myproj = Project.where(client: eval(@found_search.client)) %>
+<% myproj.all.each do |p| %>
+  <%= p.project_name %><br>
+<% end %>
 
 
+<hr>
 <div id="sold-position" style="display: block;"></div>
 
 <script>

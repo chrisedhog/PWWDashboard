@@ -19,31 +19,56 @@ validates_date :from_date, :on_or_before => :today
 
     #     return projects
     # end
+    def test_thingy
+        # First need to delete the blank item in index 0 of array in desktop browers (for some reason does not show up on mobile form submission)
+        my_searched_clients = eval(client)
+        if my_searched_clients[0].empty?
+            my_searched_clients.delete_at(0)
+        end 
 
+        my_searched_location = eval(location)
+        if my_searched_location[0].empty?
+            my_searched_location.delete_at(0)
+        end
+
+        my_clients = Project.where(client_id: my_searched_clients)
+        my_clients = Project.where(client: @user_clients)
+        puts('============================0')
+        puts('============================2')
+        puts(my_clients)
+        puts('============================0')
+        my_clients.where("project_status = ?", "Contracted")
+
+        my_clients_sorted = my_clients.group_by_month(:created_at).sum(:budget_margin)
+        my_clients_sorted = @current_user
+        puts(@current_user)
+        
+        return my_clients_sorted
+    end
 
     # Arranges the search results into the grouped months 
     def budget_margin_by_month
         # We no longer filter by specific pojects
-        # my_projects = Project.where(id: projects.pluck(:id))
-
+        my_projects = Project.where(id: projects.pluck(:id))
+        puts('============================0')
         # note currently it's never nil because for some reason the client array always begins with an empty entry [""]
-        if (clients.count < 1)
-            my_project = Project.where(client_id: current_user.clients(:id))
-            puts('============================1')
-            puts('It says you have no clients')
-            puts('============================2')
-        else
-            my_projects = Project.where(client_id: clients.pluck(:id))
-            puts('============================3')
-            puts(clients)
-            puts('============================4')
-        end
-        my_projects = my_projects.where("project_status = ?", "Contracted")
-        puts('============================5') 
-        my_projects.all.each do |p|
-                puts(p.project_name)
-                puts(p.client.location)
-        end
+        # if (clients.count < 1)
+        #     my_project = Project.all
+        #     puts('============================1')
+        #     puts('It says you have no clients')
+        #     puts('============================2')
+        # else
+        #     my_project = Project.all.pluck(client_id: eval(client))
+        #     puts('============================3')
+        #     puts(clients)
+        #     puts('============================4')
+        # end
+        # my_projects = my_projects.where("project_status = ?", "Contracted")
+        # puts('============================5') 
+        # my_projects.all.each do |p|
+        #         puts(p.project_name)
+        #         puts(p.client.location)
+        # end
         puts('============================6') 
         my_projects = my_projects.where("created_at >= ? AND created_at <= ?", from_date, to_date) 
         my_projects_sorted = my_projects.group_by_month(:created_at).sum(:budget_margin)
